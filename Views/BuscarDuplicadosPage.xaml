@@ -1,0 +1,59 @@
+﻿<Page x:Class="FileOrganizer.Views.BuscarDuplicadosPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FileOrganizer.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+     Title="Procurar Arquivos Duplicados">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="20" FontWeight="SemiBold" Text="Procurar Arquivos Duplicados" Margin="0,0,0,12"/>
+
+        <GroupBox Header="Critérios" Grid.Row="1">
+            <StackPanel Margin="8">
+                <WrapPanel>
+                    <TextBlock Text="Identificar por:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <CheckBox x:Name="ChkPorNome" Content="Nome" IsChecked="True"
+                     Margin="0,0,20,0"/>
+                    <CheckBox x:Name="ChkPorTamanho" Content="Tamanho"
+                     Margin="0,0,20,0"/>
+                    <CheckBox x:Name="ChkPorConteudo" Content="Conteúdo"
+                     Margin="0,0,20,0"/>
+                </WrapPanel>
+
+                <DockPanel Margin="0,8,0,0">
+                    <TextBox x:Name="TxtDiretorios" DockPanel.Dock="Left" Width="520"
+                             ToolTip="Caminho de pasta para varredura"/>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                        <Button Content="Selecionar"/>
+                        <Button Content="Pesquisar" Margin="8,0,0,0"/>
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Possíveis Duplicados" Grid.Row="2">
+            <DataGrid x:Name="GridDuplicados">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="Sel." Binding="{Binding Selecionado}" Width="60"/>
+                    <DataGridTextColumn Header="Arquivo" Binding="{Binding Nome}" Width="*"/>
+                    <DataGridTextColumn Header="Caminho" Binding="{Binding Caminho}" Width="2*"/>
+                    <DataGridTextColumn Header="Tamanho" Binding="{Binding Tamanho}" Width="120"/>
+                    <DataGridTextColumn Header="Assinatura/Hash" Binding="{Binding Hash}" Width="2*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+            <Button Content="Excluir Selecionados"/>
+        </StackPanel>
+    </Grid>
+</Page>

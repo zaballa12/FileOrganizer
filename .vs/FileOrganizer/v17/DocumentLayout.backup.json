@@ -1,0 +1,188 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|c:\\users\\moderniza\\source\\repos\\fileorganizer\\fileorganizer\\models\\regradenegocio\\iorganizarpastarn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|solutionrelative:fileorganizer\\models\\regradenegocio\\iorganizarpastarn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|c:\\users\\moderniza\\source\\repos\\fileorganizer\\fileorganizer\\models\\regradenegocio\\organizarporformato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|solutionrelative:fileorganizer\\models\\regradenegocio\\organizarporformato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|c:\\users\\moderniza\\source\\repos\\fileorganizer\\fileorganizer\\models\\pastamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|solutionrelative:fileorganizer\\models\\pastamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|c:\\users\\moderniza\\source\\repos\\fileorganizer\\fileorganizer\\models\\arquivomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|solutionrelative:fileorganizer\\models\\arquivomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|c:\\users\\moderniza\\source\\repos\\fileorganizer\\fileorganizer\\services\\selecionadorpastasservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|solutionrelative:fileorganizer\\services\\selecionadorpastasservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|c:\\users\\moderniza\\source\\repos\\fileorganizer\\fileorganizer\\viewmodels\\organizararquivosviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|solutionrelative:fileorganizer\\viewmodels\\organizararquivosviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|c:\\users\\moderniza\\source\\repos\\fileorganizer\\fileorganizer\\services\\protetorpastassistemaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|solutionrelative:fileorganizer\\services\\protetorpastassistemaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|c:\\users\\moderniza\\source\\repos\\fileorganizer\\fileorganizer\\services\\mensagemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|solutionrelative:fileorganizer\\services\\mensagemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|c:\\users\\moderniza\\source\\repos\\fileorganizer\\fileorganizer\\views\\organizararquivospage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{537BA0D5-3DC4-4A6C-870C-8ABDF07FE3CC}|FileOrganizer\\FileOrganizer.csproj|solutionrelative:fileorganizer\\views\\organizararquivospage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IOrganizarPastaRN.cs",
+              "DocumentMoniker": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Models\\RegraDeNegocio\\IOrganizarPastaRN.cs",
+              "RelativeDocumentMoniker": "FileOrganizer\\Models\\RegraDeNegocio\\IOrganizarPastaRN.cs",
+              "ToolTip": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Models\\RegraDeNegocio\\IOrganizarPastaRN.cs",
+              "RelativeToolTip": "FileOrganizer\\Models\\RegraDeNegocio\\IOrganizarPastaRN.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T00:32:49.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrganizarPorFormato.cs",
+              "DocumentMoniker": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Models\\RegraDeNegocio\\OrganizarPorFormato.cs",
+              "RelativeDocumentMoniker": "FileOrganizer\\Models\\RegraDeNegocio\\OrganizarPorFormato.cs",
+              "ToolTip": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Models\\RegraDeNegocio\\OrganizarPorFormato.cs*",
+              "RelativeToolTip": "FileOrganizer\\Models\\RegraDeNegocio\\OrganizarPorFormato.cs*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T00:54:29.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PastaModel.cs",
+              "DocumentMoniker": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Models\\PastaModel.cs",
+              "RelativeDocumentMoniker": "FileOrganizer\\Models\\PastaModel.cs",
+              "ToolTip": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Models\\PastaModel.cs",
+              "RelativeToolTip": "FileOrganizer\\Models\\PastaModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T00:49:57.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ArquivoModel.cs",
+              "DocumentMoniker": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Models\\ArquivoModel.cs",
+              "RelativeDocumentMoniker": "FileOrganizer\\Models\\ArquivoModel.cs",
+              "ToolTip": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Models\\ArquivoModel.cs",
+              "RelativeToolTip": "FileOrganizer\\Models\\ArquivoModel.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T00:34:40.37Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MensagemService.cs",
+              "DocumentMoniker": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Services\\MensagemService.cs",
+              "RelativeDocumentMoniker": "FileOrganizer\\Services\\MensagemService.cs",
+              "ToolTip": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Services\\MensagemService.cs",
+              "RelativeToolTip": "FileOrganizer\\Services\\MensagemService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T23:42:39.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SelecionadorPastasService.cs",
+              "DocumentMoniker": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Services\\SelecionadorPastasService.cs",
+              "RelativeDocumentMoniker": "FileOrganizer\\Services\\SelecionadorPastasService.cs",
+              "ToolTip": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Services\\SelecionadorPastasService.cs",
+              "RelativeToolTip": "FileOrganizer\\Services\\SelecionadorPastasService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T23:32:29.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ProtetorPastasSistemaService.cs",
+              "DocumentMoniker": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Services\\ProtetorPastasSistemaService.cs",
+              "RelativeDocumentMoniker": "FileOrganizer\\Services\\ProtetorPastasSistemaService.cs",
+              "ToolTip": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Services\\ProtetorPastasSistemaService.cs",
+              "RelativeToolTip": "FileOrganizer\\Services\\ProtetorPastasSistemaService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAuwAsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T23:29:56.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "OrganizarArquivosPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Views\\OrganizarArquivosPage.xaml",
+              "RelativeDocumentMoniker": "FileOrganizer\\Views\\OrganizarArquivosPage.xaml",
+              "ToolTip": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\Views\\OrganizarArquivosPage.xaml",
+              "RelativeToolTip": "FileOrganizer\\Views\\OrganizarArquivosPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-10T23:29:48.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OrganizarArquivosViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\ViewModels\\OrganizarArquivosViewModel.cs",
+              "RelativeDocumentMoniker": "FileOrganizer\\ViewModels\\OrganizarArquivosViewModel.cs",
+              "ToolTip": "C:\\Users\\Moderniza\\source\\repos\\FileOrganizer\\FileOrganizer\\ViewModels\\OrganizarArquivosViewModel.cs",
+              "RelativeToolTip": "FileOrganizer\\ViewModels\\OrganizarArquivosViewModel.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAmwBcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:57:43.425Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

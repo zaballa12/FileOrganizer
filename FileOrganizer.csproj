@@ -9,4 +9,9 @@
 	<UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\RegraDeNegocio\BuscarDuplicados\" />
+    <Folder Include="Models\RegraDeNegocio\RenomearArquivos\" />
+  </ItemGroup>
+
 </Project>

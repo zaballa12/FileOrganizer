@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileOrganizer.Models
+namespace FileOrganizer.Models.Model
 {
     public class PastaModel
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace FileOrganizer.Services
+namespace FileOrganizer.Models.Services
 {
     public class MensagemService
     {

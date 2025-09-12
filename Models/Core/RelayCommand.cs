@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace FileOrganizer.Services
+namespace FileOrganizer.Models.Core
 {
     public class RelayCommand : ICommand
     {

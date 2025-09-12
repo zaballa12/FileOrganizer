@@ -95,7 +95,7 @@ namespace FileOrganizer.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FileOrganizer;V1.0.0.0;component/views/renomeararquivospage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FileOrganizer;component/views/renomeararquivospage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\RenomearArquivosPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

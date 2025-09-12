@@ -2,7 +2,7 @@
 using System.Net.NetworkInformation;
 using WinForms = System.Windows.Forms;
 
-namespace FileOrganizer.Services
+namespace FileOrganizer.Models.Services
 {
     public class SelecionadorPastasService : ISelecionadorPastasService
     {

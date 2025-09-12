@@ -29,51 +29,49 @@
 
         <!-- Opções de como organizar -->
         <GroupBox Header="Organizar por:" Grid.Row="1">
-            <StackPanel Orientation="Horizontal" Margin="8" >
-                <RadioButton x:Name="RbFormato"
-                     Content="Formato"
-                     GroupName="OrganizarPor"
-                     Margin="0,0,20,0"/>
-                <RadioButton x:Name="RbPrefixo"
-                     Content="Prefixo"
-                     GroupName="OrganizarPor"
-                     Margin="0,0,20,0"/>
-                <RadioButton x:Name="RbTamanho"
-                     Content="Tamanho"
-                     GroupName="OrganizarPor"
-                     Margin="0,0,20,0"
-                     IsChecked="True"/>
+            <StackPanel Orientation="Horizontal" Margin="8">
+                <RadioButton Content="Formato"
+                 GroupName="OrganizarPor"
+                 Margin="0,0,20,0"
+                 IsChecked="{Binding PorFormato, Mode=TwoWay}"/>
+                <RadioButton Content="Prefixo"
+                 GroupName="OrganizarPor"
+                 Margin="0,0,20,0"
+                 IsChecked="{Binding PorPrefixo, Mode=TwoWay}"/>
+                <RadioButton Content="Data Criação"
+                 GroupName="OrganizarPor"
+                 Margin="0,0,20,0"
+                 IsChecked="{Binding PorData, Mode=TwoWay}"/>
             </StackPanel>
         </GroupBox>
 
         <!-- Seleção de pasta -->
         <GroupBox Header="Pasta" Grid.Row="2">
             <DockPanel Margin="8">
-                <TextBox
-                Text="{Binding PastaSelecionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                DockPanel.Dock="Left" Width="520" FontSize="16" Height="32"/>
+                <TextBox Text="{Binding PastaSelecionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+             DockPanel.Dock="Left" Width="520"/>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
                     <Button Content="Selecionar" Command="{Binding SelecionaPastaCommand}"/>
-                    <Button Content="Organizar" Margin="8,0,0,0"/>
+                    <Button Content="Pré-visualizar" Margin="8,0,0,0" Command="{Binding GerarPreviaCommand}"/>
                 </StackPanel>
             </DockPanel>
         </GroupBox>
 
+
         <!-- Pré-visualização -->
-        <GroupBox Header="Pré-visualização" Grid.Row="3" Margin="0,8,0,0">
-            <DataGrid x:Name="GridPreview">
+        <GroupBox Header="Pré-visualização" Grid.Row="3">
+            <DataGrid ItemsSource="{Binding ItensPrevia}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Arquivo" Binding="{Binding Arquivo}" Width="*"/>
-                    <DataGridTextColumn Header="Local Atual" Binding="{Binding LocalAtual}" Width="2*"/>
-                    <DataGridTextColumn Header="Novo Local Sugerido" Binding="{Binding NovoLocal}" Width="2*"/>
+                    <DataGridTextColumn Header="Origem"        Binding="{Binding CaminhoOrigem}" Width="2*"/>
+                    <DataGridTextColumn Header="Pasta Destino" Binding="{Binding CaminhoDestino}" Width="2*"/>
+                    <DataGridTextColumn Header="Arquivo"       Binding="{Binding NomeCompleto}"   Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
 
         <!-- Botões (Confirmar) -->
-        <StackPanel Grid.Row="4" Orientation="Horizontal"
-                    HorizontalAlignment="Right" Margin="0,8,0,0">
-            <Button Content="Confirmar" Width="120" />
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="Confirmar" Width="120" Command="{Binding ConfirmarCommand}"/>
         </StackPanel>
     </Grid>
 </Page>

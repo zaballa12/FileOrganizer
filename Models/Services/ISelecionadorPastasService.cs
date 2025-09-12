@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileOrganizer.Services
+namespace FileOrganizer.Models.Services
 {
     public interface ISelecionadorPastasService
     {

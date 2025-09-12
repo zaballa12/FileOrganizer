@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Shapes;
 using Path = System.IO.Path;
 
-namespace FileOrganizer.Services
+namespace FileOrganizer.Models.Services
 {
     public class ProtetorPastasSistemaService 
     {

@@ -1,4 +1,5 @@
 ﻿using FileOrganizer.Models.Model;
+using FileOrganizer.Models.RegraDeNegocio.OrganizarPasta.Model;
 using FileOrganizer.Models.Services;
 using System;
 using System.Collections.Generic;
@@ -10,65 +11,9 @@ using static FileOrganizer.Models.Model.Enumerados;
 
 namespace FileOrganizer.Models.RegraDeNegocio.OrganizarPasta
 {
-    public class OrganizarPorFormato : IOrganizarPasta
+    public class OrganizarPorFormato : OrganizadorBase
     {
-        public string Caminho { get; set; }
-        public List<SugestaoMovimentacaoModel> SugestaoMovimentacaos { get;set; }
-
-        public void ConfirmarAlteracoes()
-        {
-            if (!SugestaoMovimentacaos.Any())
-                return;
-
-           foreach (SugestaoMovimentacaoModel sugestao in SugestaoMovimentacaos)
-            {
-                try
-                {
-                    if (!File.Exists(sugestao.CaminhoOrigem))
-                        continue;
-
-                    if (!Directory.Exists(sugestao.CaminhoDestino))
-                        Directory.CreateDirectory(sugestao.CaminhoDestino);
-
-                    string nomeFinal = sugestao.NomeCompleto;
-                    if (string.IsNullOrWhiteSpace(nomeFinal))
-                        nomeFinal = Path.GetFileName(sugestao.CaminhoOrigem);
-
-                    string destinoCompleto = Path.Combine(sugestao.CaminhoDestino, nomeFinal);
-
-                    // se já existe um arquivo com o mesmo nome, gera um nome único: "nome (1).ext", "nome (2).ext"...
-                    if (File.Exists(destinoCompleto))
-                    {
-                        string nomeBase = Path.GetFileNameWithoutExtension(nomeFinal);
-                        string extensao = Path.GetExtension(nomeFinal);
-                        destinoCompleto = GerarDestinoUnico(sugestao.CaminhoDestino, nomeBase, extensao);
-                    }
-
-                    // move o arquivo
-                    File.Move(sugestao.CaminhoOrigem, destinoCompleto);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    // sem permissão;
-                    continue;
-                }
-                catch (PathTooLongException)
-                {
-                    // caminho grande demais;
-                    continue;
-                }
-                catch (IOException)
-                {
-                    // erro de E/S (arquivo em uso, etc.);
-                }
-                catch (Exception)
-                {
-                    continue;
-                }
-            }
-        }
-
-        public List<SugestaoMovimentacaoModel> GerarPrevia()
+        public override List<SugestaoMovimentacaoModel> GerarPrevia()
         {
             LeitorArquivosService leitor = new LeitorArquivosService(Caminho);
 
@@ -90,24 +35,9 @@ namespace FileOrganizer.Models.RegraDeNegocio.OrganizarPasta
 
                 sugestoes.Add(sugestao);
             }
-            this.SugestaoMovimentacaos = sugestoes;
-            return sugestoes;
-        }
 
-        private string GerarDestinoUnico(string pastaDestino, string nomeBase, string extensao)
-        {
-            // incrementa contador até achar um nome livre
-            int i = 1;
-            while (true)
-            {
-                string sugestao = string.Format("{0} ({1}){2}", nomeBase, i, extensao);
-                string caminho = Path.Combine(pastaDestino, sugestao);
-                if (!File.Exists(caminho))
-                {
-                    return caminho;
-                }
-                i++;
-            }
+            SugestaoMovimentacoes = sugestoes;
+            return SugestaoMovimentacoes;
         }
     }
 }

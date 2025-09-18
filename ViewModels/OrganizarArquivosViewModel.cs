@@ -1,6 +1,6 @@
 ﻿using FileOrganizer.Models.Core;
-using FileOrganizer.Models.Model;
 using FileOrganizer.Models.RegraDeNegocio.OrganizarPasta;
+using FileOrganizer.Models.RegraDeNegocio.OrganizarPasta.Model;
 using FileOrganizer.Models.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -160,7 +160,7 @@ namespace FileOrganizer.ViewModels
                 }
 
                 // garanta que a estratégia aplique exatamente o que está na grade
-                _organizar.SugestaoMovimentacaos = new List<SugestaoMovimentacaoModel>(ItensPrevia);
+                _organizar.SugestaoMovimentacoes = new List<SugestaoMovimentacaoModel>(ItensPrevia);
 
                 _organizar.ConfirmarAlteracoes();
 

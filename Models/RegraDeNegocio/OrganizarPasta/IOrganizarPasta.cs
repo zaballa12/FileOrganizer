@@ -1,4 +1,4 @@
-﻿using FileOrganizer.Models.Model;
+﻿using FileOrganizer.Models.RegraDeNegocio.OrganizarPasta.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace FileOrganizer.Models.RegraDeNegocio.OrganizarPasta
     {
         //Propriedades
         public string Caminho { get; set; }
-        public List<SugestaoMovimentacaoModel> SugestaoMovimentacaos { get; set; }
+        public List<SugestaoMovimentacaoModel> SugestaoMovimentacoes { get; set; }
 
         //Métodos
         List<SugestaoMovimentacaoModel> GerarPrevia();

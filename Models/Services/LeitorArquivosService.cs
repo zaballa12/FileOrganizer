@@ -10,15 +10,12 @@ namespace FileOrganizer.Models.Services
 {
     internal class LeitorArquivosService
     {
-        //Propriedades
         public string Caminho { get; set; }
 
-        //Construtor
         public LeitorArquivosService(string caminho)
         {
             Caminho = caminho;
         }
-        //Métodos
         public List<ArquivoModel> Ler()
         {
             List<ArquivoModel> lista = new List<ArquivoModel>();
@@ -75,6 +72,96 @@ namespace FileOrganizer.Models.Services
                     throw new Exception("Erro ao ler informações do arquivo.");
                 }
             }
+            return lista;
+        }
+
+        public List<ArquivoModel> LerRecursivo()
+        {
+            List<ArquivoModel> lista = new List<ArquivoModel>();
+
+            // Iterativo (stack) para evitar recursão profunda
+            Stack<string> pilha = new Stack<string>();
+            pilha.Push(Caminho);
+
+            while (pilha.Count > 0)
+            {
+                string pastaAtual = pilha.Pop();
+
+                // 1) Arquivos da pasta atual
+                try
+                {
+                    IEnumerable<string> arquivos = Directory.EnumerateFiles(pastaAtual, "*", SearchOption.TopDirectoryOnly);
+
+                    foreach (string caminhoArquivo in arquivos)
+                    {
+                        try
+                        {
+                            FileInfo fi = new FileInfo(caminhoArquivo);
+
+                            // pula arquivos ocultos/sistema
+                            if ((fi.Attributes & FileAttributes.System) != 0) continue;
+                            if ((fi.Attributes & FileAttributes.Hidden) != 0) continue;
+
+                            ArquivoModel modelo = new ArquivoModel();
+                            modelo.Nome = fi.Name;
+                            modelo.DataCriacao = fi.CreationTime;
+                            modelo.DataAlteracao = fi.LastWriteTime;
+                            modelo.Tamanho = FormatarTamanho(fi.Length);
+                            modelo.Caminho = fi.FullName;
+                            modelo.Versao = string.Empty;
+
+                            string ext = fi.Extension; // ex.: ".pdf"
+                            if (!string.IsNullOrEmpty(ext))
+                                modelo.Formato = ext.TrimStart('.').ToLowerInvariant();
+                            else
+                                modelo.Formato = string.Empty;
+
+                            lista.Add(modelo);
+                        }
+                        catch
+                        {
+                            // problema ao ler este arquivo específico → ignora e continua
+                            continue;
+                        }
+                    }
+                }
+                catch
+                {
+                    // sem permissão ou erro ao enumerar arquivos desta pasta → ignora e segue
+                }
+
+                // 2) Subpastas (empilha para continuar varredura)
+                try
+                {
+                    IEnumerable<string> subpastas = Directory.EnumerateDirectories(pastaAtual, "*", SearchOption.TopDirectoryOnly);
+
+                    foreach (string sub in subpastas)
+                    {
+                        try
+                        {
+                            DirectoryInfo di = new DirectoryInfo(sub);
+
+                            // pula pastas ocultas/sistema e reparse points (symlink/junction) para evitar loops
+                            FileAttributes at = di.Attributes;
+                            if ((at & FileAttributes.ReparsePoint) != 0) continue;
+                            if ((at & FileAttributes.System) != 0) continue;
+                            if ((at & FileAttributes.Hidden) != 0) continue;
+
+                            pilha.Push(sub);
+                        }
+                        catch
+                        {
+                            // problema ao acessar esta subpasta → ignora e continua
+                            continue;
+                        }
+                    }
+                }
+                catch
+                {
+                    // erro ao enumerar subpastas → ignora e segue
+                }
+            }
+
             return lista;
         }
 

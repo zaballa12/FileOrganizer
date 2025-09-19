@@ -17,7 +17,6 @@ namespace FileOrganizer.ViewModels
         private IOrganizarPasta _organizar;
         private string _pastaSelecionada;
 
-        // Propriedade que vai ser usada para exibir a pasta selecionada
         public string PastaSelecionada
         {
             get { return _pastaSelecionada; }
@@ -28,11 +27,10 @@ namespace FileOrganizer.ViewModels
 
                 _pastaSelecionada = value;
 
-                // avisa a UI que a propriedade mudou (INotifyPropertyChanged)
                 OnPropertyChanged();
             }
         }
-        // Propriedades que controlam o tipo da organização
+
         private bool _porFormato = true;  // padrão
         public bool PorFormato
         {
@@ -75,12 +73,12 @@ namespace FileOrganizer.ViewModels
             _protetor = new ProtetorPastasSistemaService();
             _msg = new MensagemService();
 
-            SelecionaPastaCommand = new RelayCommand(ExecutarSelecaoDePasta, null);
+            SelecionaPastaCommand = new RelayCommand(SelecionarPasta, null);
             GerarPreviaCommand = new RelayCommand(ExecutarGerarPrevia, PodeGerarPrevia);
             ConfirmarCommand = new RelayCommand(ExecutarConfirmar, PodeConfirmar);
         }
 
-        private void ExecutarSelecaoDePasta(object _)
+        private void SelecionarPasta(object _)
         {
             string caminho = _selecionador.SelecionaPasta();
             if (string.IsNullOrWhiteSpace(caminho))

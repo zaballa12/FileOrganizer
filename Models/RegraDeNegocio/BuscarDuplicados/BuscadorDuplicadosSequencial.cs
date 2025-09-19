@@ -17,16 +17,16 @@ namespace FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados
 
         public BuscarDuplicadosSequencial(IEnumerable<BuscadorDuplicadosBase> etapas)
         {
-            _etapas = etapas?.ToList() ?? new List<BuscadorDuplicadosBase>();
+            _etapas = etapas != null ? etapas.ToList() : new List<BuscadorDuplicadosBase>();
         }
 
         public List<GrupoDuplicados> Buscar()
         {
-            if (string.IsNullOrWhiteSpace(Caminho) || !Directory.Exists(Caminho) || _etapas.Count == 0)
+            if  (_etapas.Count == 0)
                 return new List<GrupoDuplicados>();
 
             var leitor = new LeitorArquivosService(Caminho);
-            var arquivos = leitor.LerRecursivo();
+            var arquivos = leitor.LerRecursivo(); 
 
             if (arquivos == null || arquivos.Count == 0) 
                 return new List<GrupoDuplicados>();
@@ -38,7 +38,8 @@ namespace FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados
                 var proximo = new List<GrupoDuplicados>();
                 foreach (var grupo in grupos)
                 {
-                    if (grupo.Arquivos == null || grupo.Arquivos.Count < 2) continue;
+                    if (grupo.Arquivos == null || grupo.Arquivos.Count < 2)
+                        continue;
 
                     var sub = _etapas[i].Agrupar(grupo.Arquivos);
                     foreach (var subgrupo in sub)
@@ -52,10 +53,11 @@ namespace FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados
                     }
                 }
                 grupos = proximo;
-                if (grupos.Count == 0) break;
+                if (grupos.Count == 0) 
+                    break;
             }
 
-            return grupos ?? new List<GrupoDuplicados>();
+            return grupos != null ? grupos : new List<GrupoDuplicados>();
         }
     }
 }

@@ -21,33 +21,53 @@
             <StackPanel Margin="8">
                 <WrapPanel>
                     <TextBlock Text="Identificar por:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                    <CheckBox x:Name="ChkPorNome" Content="Nome" IsChecked="True"
-                     Margin="0,0,20,0"/>
-                    <CheckBox x:Name="ChkPorTamanho" Content="Tamanho"
-                     Margin="0,0,20,0"/>
-                    <CheckBox x:Name="ChkPorConteudo" Content="Conteúdo"
-                     Margin="0,0,20,0"/>
+                    <CheckBox Content="Nome"
+                              IsChecked="{Binding PorNome}"
+                              Margin="0,0,20,0"/>
+                    <CheckBox Content="Conteúdo"
+                              IsChecked="{Binding PorConteudo}"
+                              Margin="0,0,20,0"/>
                 </WrapPanel>
 
                 <DockPanel Margin="0,8,0,0">
-                    <TextBox x:Name="TxtDiretorios" DockPanel.Dock="Left" Width="520"
-                             ToolTip="Caminho de pasta para varredura"/>
+                    <TextBox DockPanel.Dock="Left" Width="520"
+                             Text="{Binding PastaSelecionada}"
+                             IsReadOnly="True"
+                             ToolTip="Caminho da pasta para varredura"/>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                        <Button Content="Selecionar"/>
-                        <Button Content="Pesquisar" Margin="8,0,0,0"/>
+                        <Button Content="Selecionar"
+                                Command="{Binding SelecionarPastaCommand}"/>
+                        <Button Content="Pesquisar" Margin="8,0,0,0"
+                                Command="{Binding PesquisarCommand}"/>
                     </StackPanel>
                 </DockPanel>
             </StackPanel>
         </GroupBox>
 
         <GroupBox Header="Possíveis Duplicados" Grid.Row="2">
-            <DataGrid x:Name="GridDuplicados">
+            <DataGrid ItemsSource="{Binding Itens}"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          IsReadOnly="False">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="Sel." Binding="{Binding Selecionado}" Width="60"/>
-                    <DataGridTextColumn Header="Arquivo" Binding="{Binding Nome}" Width="*"/>
-                    <DataGridTextColumn Header="Caminho" Binding="{Binding Caminho}" Width="2*"/>
-                    <DataGridTextColumn Header="Tamanho" Binding="{Binding Tamanho}" Width="120"/>
-                    <DataGridTextColumn Header="Assinatura/Hash" Binding="{Binding Hash}" Width="2*"/>
+                    <DataGridTemplateColumn Header="Sel.">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Selecionado, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTemplateColumn.CellStyle>
+                        <DataGridTemplateColumn.Width>40</DataGridTemplateColumn.Width>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Caminho" Binding="{Binding Caminho}" Width="3*"/>
+                    <DataGridTextColumn Header="Arquivo" Binding="{Binding Nome}" Width="2*"/>
+                    <DataGridTextColumn Header="Tamanho" Binding="{Binding Tamanho}" Width="*"/>
+                    <DataGridTextColumn Header="Critério" Binding="{Binding GrupoRotulo}" Width="*"/>
+
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>

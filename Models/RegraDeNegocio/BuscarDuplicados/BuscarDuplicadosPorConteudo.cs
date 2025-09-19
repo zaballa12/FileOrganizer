@@ -11,6 +11,7 @@ namespace FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados
 {
     internal class BuscarDuplicadosPorConteudo : BuscadorDuplicadosBase
     {
+        //Pode mudar a forma como o hash é calculado sem alterar a classe.
         private readonly HashService _hash;
 
         public BuscarDuplicadosPorConteudo()
@@ -23,18 +24,22 @@ namespace FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados
             _hash = hashService;
         }
 
+        /// <summary>
+        /// Tenta descobrir quais arquivos são duplicados comparando o hash de cada arquivo.
+        /// Retorna grupos de arquivos que possuem o mesmo hash.
+        /// </summary>
         public override List<GrupoDuplicados> Agrupar(List<ArquivoModel> arquivos)
         {
+            // O mapa é um dicionário, onde a chave é o hash e o valor é a lista de arquivos que têm esse mesmo hash.
+            // Foi usado dicionário para deixa a busca de um hash mais rápida, ContainsKey().
             Dictionary<string, List<ArquivoModel>> mapa = new Dictionary<string, List<ArquivoModel>>(StringComparer.OrdinalIgnoreCase);
 
-            for (int i = 0; i < arquivos.Count; i++)
+            foreach (ArquivoModel arquivo in arquivos)
             {
-                ArquivoModel a = arquivos[i];
-
                 string valorHash;
                 try
                 {
-                    valorHash = _hash.HashCompletoSha256(a.Caminho);
+                    valorHash = _hash.HashCompletoSha256(arquivo.Caminho);
                 }
                 catch
                 {
@@ -45,9 +50,10 @@ namespace FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados
                 if (!mapa.ContainsKey(valorHash))
                     mapa[valorHash] = new List<ArquivoModel>();
 
-                mapa[valorHash].Add(a);
+                mapa[valorHash].Add(arquivo);
             }
 
+            // Transforma o mapa (dicionário) em uma lista de grupos duplicados, caso dois ou mais aquivos possuam o mesmo hash.
             List<GrupoDuplicados> grupos = new List<GrupoDuplicados>();
 
             foreach (KeyValuePair<string, List<ArquivoModel>> par in mapa)
@@ -55,11 +61,11 @@ namespace FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados
                 List<ArquivoModel> lista = par.Value;
                 if (lista != null && lista.Count >= 2)
                 {
-                    GrupoDuplicados g = new GrupoDuplicados();
-                    g.Chave = "HASH";
-                    g.Valor = par.Key;
-                    g.Arquivos = lista;
-                    grupos.Add(g);
+                    GrupoDuplicados grupo = new GrupoDuplicados();
+                    grupo.Chave = "HASH";
+                    grupo.Valor = par.Key;
+                    grupo.Arquivos = lista;
+                    grupos.Add(grupo);
                 }
             }
 

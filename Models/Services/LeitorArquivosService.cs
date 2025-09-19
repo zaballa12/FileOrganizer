@@ -16,6 +16,10 @@ namespace FileOrganizer.Models.Services
         {
             Caminho = caminho;
         }
+
+        /// <summary>
+        /// Le arquivos da pasta em questão;
+        /// </summary>
         public List<ArquivoModel> Ler()
         {
             List<ArquivoModel> lista = new List<ArquivoModel>();
@@ -35,27 +39,27 @@ namespace FileOrganizer.Models.Services
             {
                 try
                 {
-                    FileInfo fi = new FileInfo(caminhoArquivo);
+                    FileInfo infoArquivo = new FileInfo(caminhoArquivo);
 
                     // Pula arquivo de sistema/oculto
-                    if ((fi.Attributes & FileAttributes.System) != 0)
+                    if ((infoArquivo.Attributes & FileAttributes.System) != 0)
                         continue;
-                    if ((fi.Attributes & FileAttributes.Hidden) != 0)
+                    if ((infoArquivo.Attributes & FileAttributes.Hidden) != 0)
                         continue;
 
                     ArquivoModel arquivoModel = new ArquivoModel();
 
-                    arquivoModel.Nome = fi.Name;
+                    arquivoModel.Nome = infoArquivo.Name;
 
-                    arquivoModel.DataCriacao = fi.CreationTime;
-                    arquivoModel.DataAlteracao = fi.LastWriteTime;
+                    arquivoModel.DataCriacao = infoArquivo.CreationTime;
+                    arquivoModel.DataAlteracao = infoArquivo.LastWriteTime;
 
-                    arquivoModel.Tamanho = FormatarTamanho(fi.Length);
+                    arquivoModel.Tamanho = FormatarTamanho(infoArquivo.Length);
 
-                    arquivoModel.Caminho = fi.FullName;
+                    arquivoModel.Caminho = infoArquivo.FullName;
                     arquivoModel.Versao = string.Empty; // se não usar, deixe vazio
 
-                    string ext = fi.Extension; // ex.: ".pdf"
+                    string ext = infoArquivo.Extension; // ex.: ".pdf"
                     if (!string.IsNullOrEmpty(ext))
                     {
                         arquivoModel.Formato = ext.TrimStart('.').ToLowerInvariant();
@@ -75,6 +79,9 @@ namespace FileOrganizer.Models.Services
             return lista;
         }
 
+        /// <summary>
+        /// Le arquivos da pasta em questão e arquivos que estão nas subpastas, de forma recusiva;
+        /// </summary>
         public List<ArquivoModel> LerRecursivo()
         {
             List<ArquivoModel> lista = new List<ArquivoModel>();
@@ -96,21 +103,21 @@ namespace FileOrganizer.Models.Services
                     {
                         try
                         {
-                            FileInfo fi = new FileInfo(caminhoArquivo);
+                            FileInfo infoArquivo = new FileInfo(caminhoArquivo);
 
                             // pula arquivos ocultos/sistema
-                            if ((fi.Attributes & FileAttributes.System) != 0) continue;
-                            if ((fi.Attributes & FileAttributes.Hidden) != 0) continue;
+                            if ((infoArquivo.Attributes & FileAttributes.System) != 0) continue;
+                            if ((infoArquivo.Attributes & FileAttributes.Hidden) != 0) continue;
 
                             ArquivoModel modelo = new ArquivoModel();
-                            modelo.Nome = fi.Name;
-                            modelo.DataCriacao = fi.CreationTime;
-                            modelo.DataAlteracao = fi.LastWriteTime;
-                            modelo.Tamanho = FormatarTamanho(fi.Length);
-                            modelo.Caminho = fi.FullName;
+                            modelo.Nome = infoArquivo.Name;
+                            modelo.DataCriacao = infoArquivo.CreationTime;
+                            modelo.DataAlteracao = infoArquivo.LastWriteTime;
+                            modelo.Tamanho = FormatarTamanho(infoArquivo.Length);
+                            modelo.Caminho = infoArquivo.FullName;
                             modelo.Versao = string.Empty;
 
-                            string ext = fi.Extension; // ex.: ".pdf"
+                            string ext = infoArquivo.Extension;
                             if (!string.IsNullOrEmpty(ext))
                                 modelo.Formato = ext.TrimStart('.').ToLowerInvariant();
                             else
@@ -135,19 +142,19 @@ namespace FileOrganizer.Models.Services
                 {
                     IEnumerable<string> subpastas = Directory.EnumerateDirectories(pastaAtual, "*", SearchOption.TopDirectoryOnly);
 
-                    foreach (string sub in subpastas)
+                    foreach (string subpasta in subpastas)
                     {
                         try
                         {
-                            DirectoryInfo di = new DirectoryInfo(sub);
+                            DirectoryInfo infoDiretorio = new DirectoryInfo(subpasta);
 
                             // pula pastas ocultas/sistema e reparse points (symlink/junction) para evitar loops
-                            FileAttributes at = di.Attributes;
-                            if ((at & FileAttributes.ReparsePoint) != 0) continue;
-                            if ((at & FileAttributes.System) != 0) continue;
-                            if ((at & FileAttributes.Hidden) != 0) continue;
+                            FileAttributes atributos = infoDiretorio.Attributes;
+                            if ((atributos & FileAttributes.ReparsePoint) != 0) continue;
+                            if ((atributos & FileAttributes.System) != 0) continue;
+                            if ((atributos & FileAttributes.Hidden) != 0) continue;
 
-                            pilha.Push(sub);
+                            pilha.Push(subpasta);
                         }
                         catch
                         {

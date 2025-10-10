@@ -1,4 +1,5 @@
 ﻿using FileOrganizer.Models.RegraDeNegocio.OrganizarPasta.Model;
+using FileOrganizer.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,31 +42,17 @@ namespace FileOrganizer.Models.RegraDeNegocio.OrganizarPasta
                     {
                         string nomeBase = Path.GetFileNameWithoutExtension(nomeFinal);
                         string extensao = Path.GetExtension(nomeFinal);
-                        destinoCompleto = GerarDestinoUnico(sugestao.CaminhoDestino, nomeBase, extensao);
+                        destinoCompleto = NomeArquivoService.GerarDestinoUnico(sugestao.CaminhoDestino, nomeBase, extensao);
                     }
 
                     File.Move(sugestao.CaminhoOrigem, destinoCompleto);
                 }
                 catch (UnauthorizedAccessException) { continue; }
                 catch (PathTooLongException) { continue; }
-                catch (IOException) { /* em uso etc. */ }
+                catch (IOException) { continue; }
                 catch (Exception) { continue; }
             }
         }
-
-        private string GerarDestinoUnico(string pastaDestino, string nomeBase, string extensao)
-        {
-            int i = 1;
-            while (true)
-            {
-                string sugestao = $"{nomeBase} ({i}){extensao}";
-                string caminho = Path.Combine(pastaDestino, sugestao);
-                if (!File.Exists(caminho))
-                    return caminho;
-                i++;
-            }
-        }
     }
-
 }
 

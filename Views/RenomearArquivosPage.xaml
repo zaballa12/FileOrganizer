@@ -1,17 +1,18 @@
 ﻿<Page x:Class="FileOrganizer.Views.RenomearArquivosPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:FileOrganizer.Views" xmlns:vm="clr-namespace:FileOrganizer.ViewModels"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Renomear em Lote">
-    <!-- DataContext -->
+
+    <!-- ViewModel da tela -->
     <Page.DataContext>
-        <vm:OrganizarArquivosViewModel/>
+        <vm:RenomearArquivosViewModel/>
     </Page.DataContext>
-    
+
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,11 +20,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
-            <!-- rodapé (Confirmar) -->
         </Grid.RowDefinitions>
 
-        <TextBlock FontSize="20" FontWeight="SemiBold" Text="Renomear em Lote" Margin="0,0,0,12"/>
+        <!-- Título -->
+        <TextBlock FontSize="20" FontWeight="SemiBold"
+                   Text="Renomear em Lote" Margin="0,0,0,12"/>
 
+        <!-- Prefixo e Sufixo -->
         <GroupBox Header="Prefixo e Sufixo" Grid.Row="1">
             <Grid Margin="8">
                 <Grid.ColumnDefinitions>
@@ -33,29 +36,24 @@
 
                 <!-- PREFIXO -->
                 <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                    <TextBlock Text="Prefixo" FontWeight="SemiBold"/>
-                    <StackPanel Orientation="Horizontal">
-                        <ComboBox x:Name="CmbPrefixoTipo"
-                                  Width="200"
-                                  SelectedValuePath="Content"
-                                  SelectedValue="Tipo">
-                            <ComboBoxItem Content="Número"/>
-                            <ComboBoxItem Content="Tipo"/>
+                    <TextBlock Text="Prefixo" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                        <ComboBox Width="200"
+                                  SelectedValue="{Binding ModoPrefixoTexto, Mode=TwoWay}"
+                                  SelectedValuePath="Content">
                             <ComboBoxItem Content="Texto"/>
+                            <ComboBoxItem Content="Extensão"/>
                         </ComboBox>
 
-                        <!-- só aparece se for Texto -->
-                        <TextBox x:Name="TxtPrefixoTexto"
-                                 Width="120"
-                                 Height="22"
-                                 Margin="6,0,0,0"
-                                 ToolTip="Texto do prefixo quando o tipo for 'Texto'">
+                        <!-- aparece só quando ModoPrefixoTexto = Texto -->
+                        <TextBox Width="150" Height="22" Margin="6,0,0,0"
+                                 Text="{Binding PrefixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 ToolTip="Texto do prefixo quando o modo for 'Texto'">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding SelectedValue, ElementName=CmbPrefixoTipo}"
-                                                     Value="Texto">
+                                        <DataTrigger Binding="{Binding ModoPrefixoTexto}" Value="Texto">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -67,29 +65,24 @@
 
                 <!-- SUFIXO -->
                 <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                    <TextBlock Text="Sufixo" FontWeight="SemiBold"/>
-                    <StackPanel Orientation="Horizontal">
-                        <ComboBox x:Name="CmbSufixoTipo"
-                                  Width="200"
-                                  SelectedValuePath="Content"
-                                  SelectedValue="Número">
-                            <ComboBoxItem Content="Número"/>
-                            <ComboBoxItem Content="Tipo"/>
+                    <TextBlock Text="Sufixo" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <ComboBox Width="200"
+                                  SelectedValue="{Binding ModoSufixoTexto, Mode=TwoWay}"
+                                  SelectedValuePath="Content">
                             <ComboBoxItem Content="Texto"/>
+                            <ComboBoxItem Content="Extensão"/>
                         </ComboBox>
 
-                        <!-- só aparece se for Texto -->
-                        <TextBox x:Name="TxtSufixoTexto"
-                                 Width="120"
-                                 Height="22"
-                                 Margin="6,0,0,0"
-                                 ToolTip="Texto do sufixo quando o tipo for 'Texto'">
+                        <!-- aparece só quando ModoSufixoTexto = Texto -->
+                        <TextBox Width="150" Height="22" Margin="6,0,0,0"
+                                 Text="{Binding SufixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 ToolTip="Texto do sufixo quando o modo for 'Texto'">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding SelectedValue, ElementName=CmbSufixoTipo}"
-                                                     Value="Texto">
+                                        <DataTrigger Binding="{Binding ModoSufixoTexto}" Value="Texto">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -101,33 +94,36 @@
             </Grid>
         </GroupBox>
 
-
-        <GroupBox Header="Pasta" Grid.Row="2">
+        <!-- Pasta -->
+        <GroupBox Header="Pasta" Grid.Row="2" Margin="0,8,0,0">
             <DockPanel Margin="8">
-                <TextBox
-                Text="{Binding PastaSelecionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                DockPanel.Dock="Left" Width="520"/>
+                <TextBox DockPanel.Dock="Left" Width="520"
+                         Text="{Binding PastaSelecionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                    <Button Content="Selecionar" Command="{Binding ComandoSelecionarPasta}"/>
-                    <Button Content="Organizar" Margin="8,0,0,0"/>
+                    <Button Content="Selecionar" Command="{Binding SelecionarPastaCommand}"/>
+                    <Button Content="Pré-visualizar" Margin="8,0,0,0" Command="{Binding GerarPreviaCommand}"/>
                 </StackPanel>
             </DockPanel>
         </GroupBox>
-        
+
         <!-- Pré-visualização -->
-        <GroupBox Header="Pré-visualização" Grid.Row="3">
-            <DataGrid x:Name="GridPreviewRename">
+        <GroupBox Header="Pré-visualização" Grid.Row="3" Margin="0,8,0,0">
+            <DataGrid ItemsSource="{Binding ItensPrevia}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nome Atual" Binding="{Binding NomeAtual}" Width="2*"/>
-                    <DataGridTextColumn Header="Novo Nome" Binding="{Binding NovoNome}" Width="2*"/>
+                    <DataGridTextColumn Header="Novo Nome"  Binding="{Binding NovoNome}"  Width="2*"/>
+                    <DataGridTextColumn Header="Arquivo (caminho)" Binding="{Binding CaminhoCompleto}" Width="3*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-        
+
         <!-- Rodapé -->
         <StackPanel Grid.Row="4" Orientation="Horizontal"
                     HorizontalAlignment="Right" Margin="0,8,0,0">
-            <Button Content="Confirmar" Width="120"/>
+            <Button Content="Confirmar" Width="120" Command="{Binding ConfirmarCommand}"/>
         </StackPanel>
     </Grid>
 </Page>

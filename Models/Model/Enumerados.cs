@@ -17,5 +17,10 @@ namespace FileOrganizer.Models.Model
             Compactados,
             Outros
         }
+        public enum ModoRenomear 
+        {
+            Texto,
+            Extensao
+        }
     }
 }

@@ -26,6 +26,9 @@ namespace FileOrganizer.ViewModels
 
             _modoPrefixo = ModoRenomear.Texto;
             _modoSufixo = ModoRenomear.Extensao; // defina como preferir
+            // Inicializa proxies a partir dos enums
+            _modoPrefixoTexto = _modoPrefixo == ModoRenomear.Texto ? "Texto" : "Extensão";
+            _modoSufixoTexto = _modoSufixo == ModoRenomear.Texto ? "Texto" : "Extensão";
             _itensPrevia = new ObservableCollection<SugestaoRenomeacaoModel>();
 
             SelecionarPastaCommand = new RelayCommand(ExecutarSelecionarPasta);
@@ -56,9 +59,9 @@ namespace FileOrganizer.ViewModels
             {
                 if (_modoPrefixo == value) return;
                 _modoPrefixo = value;
+                // sincronia com o proxy
+                ModoPrefixoTexto = _modoPrefixo == ModoRenomear.Texto ? "Texto" : "Extensão";
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(MostrarPrefixoTexto));
-                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -70,8 +73,44 @@ namespace FileOrganizer.ViewModels
             {
                 if (_modoSufixo == value) return;
                 _modoSufixo = value;
+                // sincronia com o proxy
+                ModoSufixoTexto = _modoSufixo == ModoRenomear.Texto ? "Texto" : "Extensão";
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(MostrarSufixoTexto));
+            }
+        }
+        // ==== PROXIES em STRING usados pelos ComboBox no XAML ====
+        private string _modoPrefixoTexto;
+        public string ModoPrefixoTexto
+        {
+            get => _modoPrefixoTexto;
+            set
+            {
+                if (_modoPrefixoTexto == value) return;
+                _modoPrefixoTexto = value;
+                // mapeia para o enum
+                _modoPrefixo = string.Equals(value, "Texto", StringComparison.OrdinalIgnoreCase)
+                    ? ModoRenomear.Texto
+                    : ModoRenomear.Extensao;
+                OnPropertyChanged();                 // notifica o próprio proxy
+                OnPropertyChanged(nameof(ModoPrefixo)); // mantém ambos em sincronia
+                CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        private string _modoSufixoTexto;
+        public string ModoSufixoTexto
+        {
+            get => _modoSufixoTexto;
+            set
+            {
+                if (_modoSufixoTexto == value) return;
+                _modoSufixoTexto = value;
+                // mapeia para o enum
+                _modoSufixo = string.Equals(value, "Texto", StringComparison.OrdinalIgnoreCase)
+                    ? ModoRenomear.Texto
+                    : ModoRenomear.Extensao;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ModoSufixo));
                 CommandManager.InvalidateRequerySuggested();
             }
         }

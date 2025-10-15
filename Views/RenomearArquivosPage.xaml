@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:FileOrganizer.Views" xmlns:vm="clr-namespace:FileOrganizer.ViewModels"
+      xmlns:local="clr-namespace:FileOrganizer.Views"
+      xmlns:vm="clr-namespace:FileOrganizer.ViewModels"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Renomear em Lote">
@@ -23,8 +24,7 @@
         </Grid.RowDefinitions>
 
         <!-- Título -->
-        <TextBlock FontSize="20" FontWeight="SemiBold"
-                   Text="Renomear em Lote" Margin="0,0,0,12"/>
+        <TextBlock FontSize="20" FontWeight="SemiBold" Text="Renomear em Lote" Margin="0,0,0,12"/>
 
         <!-- Prefixo e Sufixo -->
         <GroupBox Header="Prefixo e Sufixo" Grid.Row="1">
@@ -37,23 +37,25 @@
                 <!-- PREFIXO -->
                 <StackPanel Grid.Column="0" Margin="0,0,8,0">
                     <TextBlock Text="Prefixo" FontWeight="SemiBold" Margin="0,0,0,4"/>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
-                        <ComboBox Width="200"
-                                  SelectedValue="{Binding ModoPrefixoTexto, Mode=TwoWay}"
-                                  SelectedValuePath="Content">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <ComboBox x:Name="PrefixoModoCombo"
+                                  Width="200"
+                                  SelectedValuePath="Content"
+                                  SelectedValue="{Binding ModoPrefixoTexto}">
                             <ComboBoxItem Content="Texto"/>
                             <ComboBoxItem Content="Extensão"/>
                         </ComboBox>
 
-                        <!-- aparece só quando ModoPrefixoTexto = Texto -->
+                        <!-- Campo do PREFIXO: só aparece quando o tipo = Texto -->
                         <TextBox Width="150" Height="22" Margin="6,0,0,0"
                                  Text="{Binding PrefixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 ToolTip="Texto do prefixo quando o modo for 'Texto'">
+                                 MaxLength="4"
+                                 ToolTip="Digite até 4 caracteres para o prefixo">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ModoPrefixoTexto}" Value="Texto">
+                                        <DataTrigger Binding="{Binding SelectedValue, ElementName=PrefixoModoCombo}" Value="Texto">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -67,22 +69,24 @@
                 <StackPanel Grid.Column="1" Margin="8,0,0,0">
                     <TextBlock Text="Sufixo" FontWeight="SemiBold" Margin="0,0,0,4"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <ComboBox Width="200"
-                                  SelectedValue="{Binding ModoSufixoTexto, Mode=TwoWay}"
-                                  SelectedValuePath="Content">
+                        <ComboBox x:Name="SufixoModoCombo"
+                                  Width="200"
+                                  SelectedValuePath="Content"
+                                  SelectedValue="{Binding ModoSufixoTexto}">
                             <ComboBoxItem Content="Texto"/>
                             <ComboBoxItem Content="Extensão"/>
                         </ComboBox>
 
-                        <!-- aparece só quando ModoSufixoTexto = Texto -->
+                        <!-- Campo do SUFIXO: só aparece quando o tipo = Texto -->
                         <TextBox Width="150" Height="22" Margin="6,0,0,0"
                                  Text="{Binding SufixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 ToolTip="Texto do sufixo quando o modo for 'Texto'">
+                                 MaxLength="4"
+                                 ToolTip="Digite até 4 caracteres para o sufixo">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ModoSufixoTexto}" Value="Texto">
+                                        <DataTrigger Binding="{Binding SelectedValue, ElementName=SufixoModoCombo}" Value="Texto">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -114,15 +118,13 @@
                       IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nome Atual" Binding="{Binding NomeAtual}" Width="2*"/>
-                    <DataGridTextColumn Header="Novo Nome"  Binding="{Binding NovoNome}"  Width="2*"/>
-                    <DataGridTextColumn Header="Arquivo (caminho)" Binding="{Binding CaminhoCompleto}" Width="3*"/>
+                    <DataGridTextColumn Header="Novo Nome" Binding="{Binding NomeNovo}" Width="2*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
 
         <!-- Rodapé -->
-        <StackPanel Grid.Row="4" Orientation="Horizontal"
-                    HorizontalAlignment="Right" Margin="0,8,0,0">
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
             <Button Content="Confirmar" Width="120" Command="{Binding ConfirmarCommand}"/>
         </StackPanel>
     </Grid>

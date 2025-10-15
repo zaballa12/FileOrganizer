@@ -1,0 +1,54 @@
+﻿# Diretórios de build
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+[Ll]ogs/
+
+# VS e temporários
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# WPF / arquivos gerados
+**/*_wpftmp*/
+**/*.g.cs
+**/*.g.i.cs
+**/*.i.cs
+**/*.baml
+**/*.g.resources
+
+# Cache/NuGet
+*.nupkg
+*.nuspec
+.nuget/
+packages/
+project.lock.json
+artifacts/
+**/project.assets.json
+**/PackageRestoreConsent*.xml
+
+# Testes
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Build configs
+Debug/
+Release/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# IDEs alternativas
+.idea/
+.vscode/
+
+# SO
+Thumbs.db
+.DS_Store

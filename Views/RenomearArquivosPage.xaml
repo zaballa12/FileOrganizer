@@ -3,13 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:FileOrganizer.Views"
       xmlns:vm="clr-namespace:FileOrganizer.ViewModels"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Renomear em Lote">
 
-    <!-- ViewModel da tela -->
+    <!-- ViewModel -->
     <Page.DataContext>
         <vm:RenomearArquivosViewModel/>
     </Page.DataContext>
@@ -17,18 +17,29 @@
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <!-- título -->
             <RowDefinition Height="Auto"/>
+            <!-- prefixo/sufixo -->
             <RowDefinition Height="Auto"/>
+            <!-- pasta -->
             <RowDefinition/>
+            <!-- grid -->
             <RowDefinition Height="Auto"/>
+            <!-- rodapé -->
         </Grid.RowDefinitions>
 
-        <!-- Título -->
-        <TextBlock FontSize="20" FontWeight="SemiBold" Text="Renomear em Lote" Margin="0,0,0,12"/>
+        <!-- TÍTULO -->
+        <TextBlock Text="Renomear em Lote"
+               Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+               Margin="0,0,0,12"/>
 
-        <!-- Prefixo e Sufixo -->
-        <GroupBox Header="Prefixo e Sufixo" Grid.Row="1">
-            <Grid Margin="8">
+        <!-- PREFIXO E SUFIXO -->
+        <materialDesign:Card Grid.Row="1"
+                         Padding="12"
+                         Margin="0,0,0,8"
+                         Background="White"
+                         UniformCornerRadius="12">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -36,21 +47,23 @@
 
                 <!-- PREFIXO -->
                 <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                    <TextBlock Text="Prefixo" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="Prefixo" FontWeight="SemiBold" Margin="0,0,0,6"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <ComboBox x:Name="PrefixoModoCombo"
-                                  Width="200"
-                                  SelectedValuePath="Content"
-                                  SelectedValue="{Binding ModoPrefixoTexto}">
+                      Width="200"
+                      SelectedValuePath="Content"
+                      SelectedValue="{Binding ModoPrefixoTexto, Mode=TwoWay}">
                             <ComboBoxItem Content="Texto"/>
                             <ComboBoxItem Content="Extensão"/>
                         </ComboBox>
 
-                        <!-- Campo do PREFIXO: só aparece quando o tipo = Texto -->
-                        <TextBox Width="150" Height="22" Margin="6,0,0,0"
-                                 Text="{Binding PrefixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 MaxLength="4"
-                                 ToolTip="Digite até 4 caracteres para o prefixo">
+                        <!-- campo de texto do PREFIXO (aparece só quando tipo = Texto) -->
+                        <TextBox Width="150"
+                     Height="22"
+                     Margin="8,0,0,0"
+                     Text="{Binding PrefixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     MaxLength="4"
+                     materialDesign:HintAssist.Hint="Prefixo (4 chars)">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -67,21 +80,23 @@
 
                 <!-- SUFIXO -->
                 <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                    <TextBlock Text="Sufixo" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                    <TextBlock Text="Sufixo" FontWeight="SemiBold" Margin="0,0,0,6"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <ComboBox x:Name="SufixoModoCombo"
-                                  Width="200"
-                                  SelectedValuePath="Content"
-                                  SelectedValue="{Binding ModoSufixoTexto}">
+                      Width="200"
+                      SelectedValuePath="Content"
+                      SelectedValue="{Binding ModoSufixoTexto, Mode=TwoWay}">
                             <ComboBoxItem Content="Texto"/>
                             <ComboBoxItem Content="Extensão"/>
                         </ComboBox>
 
-                        <!-- Campo do SUFIXO: só aparece quando o tipo = Texto -->
-                        <TextBox Width="150" Height="22" Margin="6,0,0,0"
-                                 Text="{Binding SufixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 MaxLength="4"
-                                 ToolTip="Digite até 4 caracteres para o sufixo">
+                        <!-- campo de texto do SUFIXO (aparece só quando tipo = Texto) -->
+                        <TextBox Width="150"
+                     Height="22"
+                     Margin="8,0,0,0"
+                     Text="{Binding SufixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     MaxLength="4"
+                     materialDesign:HintAssist.Hint="Sufixo (4 chars)">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -96,36 +111,66 @@
                     </StackPanel>
                 </StackPanel>
             </Grid>
-        </GroupBox>
+        </materialDesign:Card>
 
-        <!-- Pasta -->
-        <GroupBox Header="Pasta" Grid.Row="2" Margin="0,8,0,0">
-            <DockPanel Margin="8">
-                <TextBox DockPanel.Dock="Left" Width="520"
-                         Text="{Binding PastaSelecionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <!-- PASTA -->
+        <materialDesign:Card Grid.Row="2"
+                         Padding="12"
+                         Margin="0,8,0,0"
+                         Background="White"
+                         UniformCornerRadius="12">
+            <DockPanel>
+                <TextBox DockPanel.Dock="Left"
+                 Width="520"
+                 Text="{Binding PastaSelecionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="Pasta"
+                 Margin="0,0,12,0"/>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                    <Button Content="Selecionar" Command="{Binding SelecionarPastaCommand}"/>
-                    <Button Content="Pré-visualizar" Margin="8,0,0,0" Command="{Binding GerarPreviaCommand}"/>
+                    <Button Content="Selecionar"
+                  Command="{Binding SelecionarPastaCommand}"
+                  Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Content="Pré-visualizar"
+                  Margin="8,0,0,0"
+                  Command="{Binding GerarPreviaCommand}"
+                  Style="{StaticResource MaterialDesignOutlinedButton}"
+                  Foreground="{DynamicResource SecondaryHueMidBrush}"
+                  BorderBrush="{DynamicResource SecondaryHueMidBrush}"/>
                 </StackPanel>
             </DockPanel>
-        </GroupBox>
+        </materialDesign:Card>
 
-        <!-- Pré-visualização -->
-        <GroupBox Header="Pré-visualização" Grid.Row="3" Margin="0,8,0,0">
-            <DataGrid ItemsSource="{Binding ItensPrevia}"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nome Atual" Binding="{Binding NomeAtual}" Width="2*"/>
-                    <DataGridTextColumn Header="Novo Nome" Binding="{Binding NomeNovo}" Width="2*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </GroupBox>
+        <!-- PRÉ-VISUALIZAÇÃO -->
+        <materialDesign:Card Grid.Row="3"
+                         Padding="12"
+                         Margin="0,8,0,0"
+                         Background="White"
+                         UniformCornerRadius="12">
+            <StackPanel>
+                <TextBlock Text="Pré-visualização" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                <DataGrid ItemsSource="{Binding ItensPrevia}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  Background="White"
+                  BorderThickness="0"
+                  GridLinesVisibility="None">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nome Atual" Binding="{Binding NomeAtual}" Width="2*"/>
+                        <DataGridTextColumn Header="Novo Nome"  Binding="{Binding NomeNovo}"  Width="2*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </materialDesign:Card>
 
-        <!-- Rodapé -->
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
-            <Button Content="Confirmar" Width="120" Command="{Binding ConfirmarCommand}"/>
+        <!-- RODAPÉ -->
+        <StackPanel Grid.Row="4"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right"
+                Margin="0,8,0,0">
+            <Button Content="Confirmar"
+              Width="120"
+              Command="{Binding ConfirmarCommand}"
+              Style="{StaticResource MaterialDesignRaisedButton}"/>
         </StackPanel>
     </Grid>
 </Page>

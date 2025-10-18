@@ -55,3 +55,9 @@ C:\FIleOrganizer\FileOrganizer\obj\Debug\net8.0-windows\FileOrganizer.csproj.Cor
 C:\FIleOrganizer\FileOrganizer\obj\Debug\net8.0-windows\FileOrganizer.sourcelink.json
 C:\FIleOrganizer\FileOrganizer\obj\Debug\net8.0-windows\FileOrganizer.genruntimeconfig.cache
 C:\FIleOrganizer\FileOrganizer\obj\Debug\net8.0-windows\ref\FileOrganizer.dll
+C:\FIleOrganizer\FileOrganizer\obj\Debug\net8.0-windows\FileOrganizer_Content.g.cs
+C:\FIleOrganizer\FileOrganizer\bin\Debug\net8.0-windows\MaterialDesignColors.dll
+C:\FIleOrganizer\FileOrganizer\bin\Debug\net8.0-windows\MaterialDesignThemes.Wpf.dll
+C:\FIleOrganizer\FileOrganizer\bin\Debug\net8.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\FIleOrganizer\FileOrganizer\obj\Debug\net8.0-windows\FileOrganizer.csproj.AssemblyReference.cache
+C:\FIleOrganizer\FileOrganizer\obj\Debug\net8.0-windows\FileOrga.D748F6E3.Up2Date

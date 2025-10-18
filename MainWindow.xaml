@@ -4,38 +4,77 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileOrganizer"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Organizador de Arquivos"
-        Width="1200"
-        Height="720"
+        Width="1200" Height="720"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
-        MaxWidth="1200"
-        MaxHeight="720"
-        MinWidth="1200"
-        MinHeight="720">
-    <Grid>
+        MaxWidth="1200" MaxHeight="720"
+        MinWidth="1200" MinHeight="720"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <Grid Background="{DynamicResource MaterialDesignPaper}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!-- Menu lateral -->
-        <DockPanel Grid.Column="0" LastChildFill="True" Background="{StaticResource Primary}">
-            <StackPanel DockPanel.Dock="Top" Margin="12">
-                <TextBlock Text="Navegação" Foreground="White" FontSize="18" FontWeight="SemiBold" Margin="4,8,4,16"/>
-                <!-- Navegação por comando nativo -->
-                <Button Content="Organizar Pasta" Click="BtnOrganizar_Click"/>
-                <Button Content="Renomear em Lote" Click="BtnRenomear_Click"/>
-                <Button Content="Procurar Arquivos Duplicados" Click="BtnDuplicados_Click"/>
-            </StackPanel>
-        </DockPanel>
+        <!-- BARRA SUPERIOR -->
+        <materialDesign:ColorZone Grid.Row="0" Grid.ColumnSpan="2"
+                                  Mode="PrimaryDark" Padding="16,10">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="FolderOpen" Width="24" Height="24" Foreground="White"/>
+                    <TextBlock Text="Organizador de Arquivos"
+                               Margin="8,0,0,0"
+                               Foreground="White"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                </StackPanel>
+            </DockPanel>
+        </materialDesign:ColorZone>
 
-        <!-- Conteúdo -->
-        <Frame x:Name="MainFrame"
-               Grid.Column="1"
-               Source="Views/OrganizarArquivosPage.xaml"
-               NavigationUIVisibility="Hidden"/>
+        <!-- MENU LATERAL -->
+        <materialDesign:Card Grid.Row="1" Grid.Column="0" Margin="16,16,0,16" Padding="16">
+            <StackPanel>
+                <TextBlock Text="Navegação"
+                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                           Foreground="{DynamicResource MaterialDesignBody}"
+                           Margin="0,0,0,12"/>
+
+                <Button Content="Organizar Pasta"
+                        Click="BtnOrganizar_Click"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        HorizontalContentAlignment="Left"
+                        Padding="12,4"
+                        Margin="0,0,0,12"/>
+
+                <Button Content="Renomear em Lote"
+                        Click="BtnRenomear_Click"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        HorizontalContentAlignment="Left"
+                        Padding="12,4"
+                        Margin="0,0,0,12"/>
+
+                <Button Content="Procurar Arquivos Duplicados"
+                        Click="BtnDuplicados_Click"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        HorizontalContentAlignment="Left"
+                        Padding="12,4"
+                        Margin="0,0,0,12"/>
+            </StackPanel>
+        </materialDesign:Card>
+
+        <!-- CONTEÚDO -->
+        <materialDesign:Card Grid.Row="1" Grid.Column="1" Margin="21,16,16,16">
+            <Frame x:Name="MainFrame"
+                   Source="Views/OrganizarArquivosPage.xaml"
+                   NavigationUIVisibility="Hidden"/>
+        </materialDesign:Card>
     </Grid>
 </Window>

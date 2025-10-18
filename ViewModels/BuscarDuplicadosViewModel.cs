@@ -5,6 +5,8 @@ using FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados.Model;
 using FileOrganizer.Models.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
@@ -13,25 +15,37 @@ namespace FileOrganizer.ViewModels
 {
     public class BuscarDuplicadosViewModel : ViewModelBase
     {
+        // Serviços
         private readonly ISelecionadorPastasService _selecionador;
         private readonly ProtetorPastasSistemaService _protetor;
         private readonly MensagemService _msg;
+        private readonly ExcluirArquivosService _exclusor;
+
+        // Estado de seleção para habilitar/desabilitar o botão Excluir
+        private int _quantidadeSelecionados;
+        public bool TemSelecionado
+        {
+            get { return _quantidadeSelecionados > 0; }
+        }
 
         public BuscarDuplicadosViewModel()
         {
             _selecionador = new SelecionadorPastasService();
             _protetor = new ProtetorPastasSistemaService();
             _msg = new MensagemService();
+            _exclusor = new ExcluirArquivosService();
 
-            _porNome = true;      // padrão
-            _porConteudo = false; // padrão
+            _porNome = true;   // padrão
+            _porConteudo = false;  // padrão
 
             _itens = new ObservableCollection<ArquivoDuplicadoModel>();
+            _itens.CollectionChanged += Itens_CollectionChanged;
 
             SelecionarPastaCommand = new RelayCommand(SelecionarPasta);
             PesquisarCommand = new RelayCommand(Pesquisar, PodePesquisar);
             MarcarTodosCommand = new RelayCommand(_ => MarcarTodos(true));
             DesmarcarTodosCommand = new RelayCommand(_ => MarcarTodos(false));
+            ExcluirSelecionadosCommand = new RelayCommand(ExcluirSelecionados); // habilita pelo TemSelecionado (XAML)
         }
 
         private string _pastaSelecionada;
@@ -40,11 +54,9 @@ namespace FileOrganizer.ViewModels
             get { return _pastaSelecionada; }
             set
             {
-                if (_pastaSelecionada == value)
-                    return;
+                if (_pastaSelecionada == value) return;
                 _pastaSelecionada = value;
                 OnPropertyChanged();
-                CommandManager.InvalidateRequerySuggested(); // reavalia CanExecute
             }
         }
 
@@ -54,11 +66,9 @@ namespace FileOrganizer.ViewModels
             get { return _porNome; }
             set
             {
-                if (_porNome == value)
-                    return;
+                if (_porNome == value) return;
                 _porNome = value;
                 OnPropertyChanged();
-                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -68,12 +78,9 @@ namespace FileOrganizer.ViewModels
             get { return _porConteudo; }
             set
             {
-                if (_porConteudo == value)
-                    return;
+                if (_porConteudo == value) return;
                 _porConteudo = value;
                 OnPropertyChanged();
-
-                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -83,10 +90,20 @@ namespace FileOrganizer.ViewModels
             get { return _itens; }
             set
             {
-                if (_itens == value)
-                    return;
-                _itens = value;
+                if (_itens == value) return;
+
+                // desassina da antiga
+                if (_itens != null)
+                    _itens.CollectionChanged -= Itens_CollectionChanged;
+
+                _itens = value ?? new ObservableCollection<ArquivoDuplicadoModel>();
+                _itens.CollectionChanged += Itens_CollectionChanged;
+
+                // reconta seleção na coleção nova
+                RecontarSelecionados();
+
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(TemSelecionado));
             }
         }
 
@@ -96,8 +113,7 @@ namespace FileOrganizer.ViewModels
             get { return _selecionarTodos; }
             set
             {
-                if (_selecionarTodos == value)
-                    return;
+                if (_selecionarTodos == value) return;
                 _selecionarTodos = value;
                 OnPropertyChanged();
                 MarcarTodos(value);
@@ -108,10 +124,11 @@ namespace FileOrganizer.ViewModels
         public ICommand PesquisarCommand { get; private set; }
         public ICommand MarcarTodosCommand { get; private set; }
         public ICommand DesmarcarTodosCommand { get; private set; }
+        public ICommand ExcluirSelecionadosCommand { get; private set; }
 
         private void SelecionarPasta(object _)
         {
-             string caminho = _selecionador.SelecionaPasta();
+            string caminho = _selecionador.SelecionaPasta();
             if (string.IsNullOrWhiteSpace(caminho))
                 return;
 
@@ -134,7 +151,7 @@ namespace FileOrganizer.ViewModels
         {
             return !string.IsNullOrWhiteSpace(PastaSelecionada)
                    && Directory.Exists(PastaSelecionada)
-                   && (_porNome || _porConteudo);
+                   && (PorNome || PorConteudo);
         }
 
         private void Pesquisar(object _)
@@ -149,7 +166,7 @@ namespace FileOrganizer.ViewModels
 
                 IBuscarDuplicados buscaDuplicados;
 
-                if (_porNome && _porConteudo)
+                if (PorNome && PorConteudo)
                 {
                     buscaDuplicados = new BuscarDuplicadosSequencial(new BuscadorDuplicadosBase[]
                     {
@@ -158,7 +175,7 @@ namespace FileOrganizer.ViewModels
                     });
                     buscaDuplicados.Caminho = PastaSelecionada;
                 }
-                else if (_porNome)
+                else if (PorNome)
                 {
                     var busca = new BuscarDuplicadosPorNome();
                     busca.Caminho = PastaSelecionada;
@@ -174,9 +191,11 @@ namespace FileOrganizer.ViewModels
                 var grupos = buscaDuplicados.Buscar();
 
                 _itens.Clear();
+                _quantidadeSelecionados = 0;
 
                 if (grupos == null || grupos.Count == 0)
                 {
+                    OnPropertyChanged(nameof(TemSelecionado));
                     _msg.Info("Nenhum arquivo duplicado encontrado.");
                     return;
                 }
@@ -191,18 +210,20 @@ namespace FileOrganizer.ViewModels
 
                     foreach (ArquivoModel arq in grupo.Arquivos)
                     {
-                        ArquivoDuplicadoModel linha = new ArquivoDuplicadoModel
+                        var item = new ArquivoDuplicadoModel
                         {
-                            Selecionado = true,
+                            Selecionado = true, // entram selecionados
                             Arquivo = arq,
                             GrupoRotulo = rotulo
                         };
 
-                        _itens.Add(linha);
+                        _itens.Add(item);
+                        _quantidadeSelecionados++; // já contamos ao inserir
                     }
                 }
 
                 SelecionarTodos = true;
+                OnPropertyChanged(nameof(TemSelecionado));
             }
             catch (UnauthorizedAccessException)
             {
@@ -219,6 +240,101 @@ namespace FileOrganizer.ViewModels
             for (int i = 0; i < _itens.Count; i++)
             {
                 _itens[i].Selecionado = valor;
+            }
+
+            _quantidadeSelecionados = valor ? _itens.Count : 0;
+            OnPropertyChanged(nameof(TemSelecionado));
+        }
+
+        private void ExcluirSelecionados(object _)
+        {
+            try
+            {
+                var selecionados = _itens.Where(i => i.Selecionado).ToList();
+                if (selecionados == null || selecionados.Count == 0)
+                {
+                    _msg.Aviso("Nenhum item selecionado para excluir.");
+                    return;
+                }
+
+                var caminhos = selecionados
+                    .Select(s => s.Arquivo?.Caminho)
+                    .Where(c => !string.IsNullOrWhiteSpace(c))
+                    .ToList();
+
+                var (ok, falhas) = _exclusor.EnviarParaLixeira(caminhos);
+
+                // remove da grade os que foram efetivamente apagados
+                for (int i = selecionados.Count - 1; i >= 0; i--)
+                {
+                    string caminho = selecionados[i].Arquivo?.Caminho;
+                    if (!string.IsNullOrWhiteSpace(caminho) && !File.Exists(caminho))
+                    {
+                        _itens.Remove(selecionados[i]);
+                    }
+                }
+
+                // reconta após a exclusão
+                RecontarSelecionados();
+                OnPropertyChanged(nameof(TemSelecionado));
+
+                _msg.Info($"Exclusão concluída. Sucesso: {ok}. Falhas: {falhas}.");
+            }
+            catch
+            {
+                _msg.Erro("Falha ao excluir os arquivos selecionados.");
+            }
+        }
+
+
+        private void Itens_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (var obj in e.NewItems)
+                {
+                    if (obj is ArquivoDuplicadoModel item)
+                    {
+                        item.PropertyChanged += Item_PropertyChanged;
+                        if (item.Selecionado) _quantidadeSelecionados++;
+                    }
+                }
+            }
+
+            if (e.OldItems != null)
+            {
+                foreach (var obj in e.OldItems)
+                {
+                    if (obj is ArquivoDuplicadoModel item)
+                    {
+                        item.PropertyChanged -= Item_PropertyChanged;
+                        if (item.Selecionado && _quantidadeSelecionados > 0) _quantidadeSelecionados--;
+                    }
+                }
+            }
+
+            OnPropertyChanged(nameof(TemSelecionado));
+        }
+
+        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ArquivoDuplicadoModel.Selecionado))
+            {
+                if (sender is ArquivoDuplicadoModel item)
+                {
+                    if (item.Selecionado) _quantidadeSelecionados++;
+                    else if (_quantidadeSelecionados > 0) _quantidadeSelecionados--;
+                    OnPropertyChanged(nameof(TemSelecionado));
+                }
+            }
+        }
+
+        private void RecontarSelecionados()
+        {
+            _quantidadeSelecionados = 0;
+            for (int i = 0; i < _itens.Count; i++)
+            {
+                if (_itens[i].Selecionado) _quantidadeSelecionados++;
             }
         }
     }

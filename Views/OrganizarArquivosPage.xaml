@@ -60,9 +60,9 @@
         <!-- PASTA -->
         <materialDesign:Card Grid.Row="2"
                          Padding="12"
-                         Margin="0,8,0,181"
+                         Margin="0,8,0,0"
                          Background="White"
-                         UniformCornerRadius="12" Grid.RowSpan="2">
+                         UniformCornerRadius="12">
             <DockPanel>
                 <TextBox DockPanel.Dock="Left"
                  Width="520"
@@ -89,7 +89,7 @@
                          Margin="0,8,0,0"
                          Background="White"
                          UniformCornerRadius="12">
-            <StackPanel>
+            <Grid>
                 <TextBlock Text="Pré-visualização" FontWeight="SemiBold" Margin="0,0,0,8"/>
                 <DataGrid ItemsSource="{Binding ItensPrevia}"
                   AutoGenerateColumns="False"
@@ -97,14 +97,20 @@
                   IsReadOnly="True"
                   Background="White"
                   BorderThickness="0"
-                  GridLinesVisibility="None">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Origem"        Binding="{Binding CaminhoOrigem}"  Width="2*"/>
-                        <DataGridTextColumn Header="Pasta Destino" Binding="{Binding CaminhoDestino}" Width="2*"/>
-                        <DataGridTextColumn Header="Arquivo"       Binding="{Binding NomeCompleto}"   Width="*"/>
+                  GridLinesVisibility="None"
+                  ColumnWidth="SizeToHeader"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="False"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+                    
+                  <DataGrid.Columns>
+                        <DataGridTextColumn Header="Origem"        Binding="{Binding CaminhoOrigem}"   MinWidth="220"/>
+                        <DataGridTextColumn Header="Pasta Destino" Binding="{Binding CaminhoDestino}"  MinWidth="220"/>
+                        <DataGridTextColumn Header="Arquivo"       Binding="{Binding NomeCompleto}"    MinWidth="260"/>
                     </DataGrid.Columns>
                 </DataGrid>
-            </StackPanel>
+            </Grid>
         </materialDesign:Card>
 
         <!-- RODAPÉ -->

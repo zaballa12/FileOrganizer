@@ -13,8 +13,8 @@ namespace FileOrganizer.Models.RegraDeNegocio.OrganizarPasta
     public class OrganizarPorPrefixo : OrganizadorBase
     {
         // Configurações da estratégia
-        private int Tamanho = 3; 
-
+        private int Tamanho = 3;
+        private static readonly char[] Delimitadores = new[] { '_', ' ', '-' };
         private string GrupoCurto = "OUTROS";
 
         public override List<SugestaoMovimentacaoModel> GerarPrevia()
@@ -24,20 +24,12 @@ namespace FileOrganizer.Models.RegraDeNegocio.OrganizarPasta
 
             List<SugestaoMovimentacaoModel> sugestoes = new List<SugestaoMovimentacaoModel>();
 
-            foreach(ArquivoModel arquivo in arquivos)
+            foreach (ArquivoModel arquivo in arquivos)
             {
                 string nomeSemExt = Path.GetFileNameWithoutExtension(arquivo.Nome);
-                string grupo;
+                string prefixo = ObterPrefixo(nomeSemExt);
+                string grupo = string.IsNullOrWhiteSpace(prefixo) ? GrupoCurto : prefixo.ToUpperInvariant();
 
-                if (string.IsNullOrWhiteSpace(nomeSemExt) || nomeSemExt.Length < Tamanho)
-                {
-                    grupo = GrupoCurto;
-                }
-                else
-                {
-                    grupo = nomeSemExt.Substring(0, Tamanho);
-                    grupo = grupo.ToUpperInvariant();
-                }
                 string pastaDestino = Path.Combine(Caminho, grupo);
 
                 SugestaoMovimentacaoModel sugestao = new SugestaoMovimentacaoModel();
@@ -50,6 +42,29 @@ namespace FileOrganizer.Models.RegraDeNegocio.OrganizarPasta
 
             SugestaoMovimentacoes = sugestoes;
             return SugestaoMovimentacoes;
+        }
+
+        private string ObterPrefixo(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                return null;
+
+            // remove delimitadores iniciais e espaços sobrando
+            string limpo = nome.Trim().TrimStart(Delimitadores);
+            if (string.IsNullOrEmpty(limpo))
+                return null;
+
+            // tenta até o primeiro delimitador interno
+            int pos = limpo.IndexOfAny(Delimitadores);
+            if (pos > 0)
+                return limpo.Substring(0, pos);
+
+            if (limpo.Length >= Tamanho)
+                return limpo.Substring(0, Tamanho);
+
+            // muito curto → manda para OUTROS
+            return null;
+
         }
     }
 }

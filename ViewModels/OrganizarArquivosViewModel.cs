@@ -157,7 +157,6 @@ namespace FileOrganizer.ViewModels
                     return;
                 }
 
-                // garanta que a estratégia aplique exatamente o que está na grade
                 _organizar.SugestaoMovimentacoes = new List<SugestaoMovimentacaoModel>(ItensPrevia);
 
                 _organizar.ConfirmarAlteracoes();

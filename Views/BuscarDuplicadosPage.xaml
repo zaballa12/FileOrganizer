@@ -14,13 +14,15 @@
             <!-- título -->
             <RowDefinition Height="Auto"/>
             <!-- critérios -->
+            <RowDefinition Height="Auto"/>
+            <!-- pasta -->
             <RowDefinition/>
             <!-- grid -->
             <RowDefinition Height="Auto"/>
             <!-- rodapé -->
         </Grid.RowDefinitions>
 
-        <!-- TÍTULO (mesmo estilo da outra tela) -->
+        <!-- TÍTULO -->
         <TextBlock Text="Procurar Arquivos Duplicados"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                    Margin="0,0,0,12"/>
@@ -33,7 +35,6 @@
                              UniformCornerRadius="12">
             <StackPanel>
                 <TextBlock Text="Critérios" FontWeight="SemiBold" Margin="0,0,0,8"/>
-
                 <WrapPanel>
                     <TextBlock Text="Identificar por:" VerticalAlignment="Center" Margin="0,0,8,0"/>
                     <CheckBox Content="Nome"
@@ -43,32 +44,38 @@
                               IsChecked="{Binding PorConteudo}"
                               Margin="0,0,20,0"/>
                 </WrapPanel>
-
-                <DockPanel Margin="0,8,0,0">
-                    <TextBox DockPanel.Dock="Left"
-                             Width="520"
-                             Text="{Binding PastaSelecionada, Mode=TwoWay}"
-                             IsReadOnly="True"
-                             materialDesign:HintAssist.Hint="Pasta para varredura"
-                             Margin="0,0,12,0"/>
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                        <!-- Mantém o padrão: primário (Raised) + secundário (Outlined) -->
-                        <Button Content="Selecionar"
-                                Command="{Binding SelecionarPastaCommand}"
-                                Style="{StaticResource MaterialDesignRaisedButton}"/>
-                        <Button Content="Pesquisar"
-                                Margin="8,0,0,0"
-                                Command="{Binding PesquisarCommand}"
-                                Style="{StaticResource MaterialDesignOutlinedButton}"
-                                Foreground="{DynamicResource SecondaryHueMidBrush}"
-                                BorderBrush="{DynamicResource SecondaryHueMidBrush}"/>
-                    </StackPanel>
-                </DockPanel>
             </StackPanel>
         </materialDesign:Card>
 
-        <!-- RESULTADOS -->
+        <!-- SELEÇÃO DE PASTA -->
         <materialDesign:Card Grid.Row="2"
+                             Padding="12"
+                             Margin="0,8,0,0"
+                             Background="White"
+                             UniformCornerRadius="12">
+            <DockPanel>
+                <TextBox DockPanel.Dock="Left"
+                         Width="520"
+                         Text="{Binding PastaSelecionada, Mode=TwoWay}"
+                         IsReadOnly="True"
+                         materialDesign:HintAssist.Hint="Pasta para varredura"
+                         Margin="0,0,12,0"/>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                    <Button Content="Selecionar"
+                            Command="{Binding SelecionarPastaCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    <Button Content="Pesquisar"
+                            Margin="8,0,0,0"
+                            Command="{Binding PesquisarCommand}"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            Foreground="{DynamicResource SecondaryHueMidBrush}"
+                            BorderBrush="{DynamicResource SecondaryHueMidBrush}"/>
+                </StackPanel>
+            </DockPanel>
+        </materialDesign:Card>
+
+        <!-- RESULTADOS -->
+        <materialDesign:Card Grid.Row="3"
                              Padding="12"
                              Margin="0,8,0,0"
                              Background="White"
@@ -120,15 +127,14 @@
         </materialDesign:Card>
 
         <!-- RODAPÉ -->
-        <StackPanel Grid.Row="3"
+        <StackPanel Grid.Row="4"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="0,8,0,0">
             <Button Content="Excluir Selecionados"
-        Command="{Binding ExcluirSelecionadosCommand}"
-        IsEnabled="{Binding TemSelecionado}"
-        Style="{StaticResource MaterialDesignRaisedButton}"/>
-
+                    Command="{Binding ExcluirSelecionadosCommand}"
+                    IsEnabled="{Binding TemSelecionado}"
+                    Style="{StaticResource MaterialDesignRaisedButton}"/>
         </StackPanel>
     </Grid>
 </Page>

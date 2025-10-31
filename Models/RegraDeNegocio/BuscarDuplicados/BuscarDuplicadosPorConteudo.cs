@@ -61,6 +61,9 @@ namespace FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados
                 List<ArquivoModel> lista = par.Value;
                 if (lista != null && lista.Count >= 2)
                 {
+                    lista = lista.OrderBy(a => a.DataCriacao).ToList();
+                    lista.First().Selecionado = false; 
+
                     GrupoDuplicados grupo = new GrupoDuplicados();
                     grupo.Chave = "HASH";
                     grupo.Valor = par.Key;

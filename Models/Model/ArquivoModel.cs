@@ -16,6 +16,8 @@ namespace FileOrganizer.Models.Model
         public string Formato { get; set; }
         public string Tamanho { get; set; }
         public string Caminho { get; set; }
-        public string Versao { get; set; }  
+        public string Versao { get; set; }
+        public bool Selecionado { get; set; } = true; // default true
+
     }
 }

@@ -23,5 +23,11 @@ namespace FileOrganizer.Models.Services
         {
             System.Windows.MessageBox.Show(msg, "Informação", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        public bool Confirmacao(string msg)
+        {
+            var result = System.Windows.MessageBox.Show(msg, "Confirmação", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            return result == MessageBoxResult.Yes;
+        }
     }
 }

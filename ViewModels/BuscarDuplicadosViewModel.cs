@@ -43,8 +43,6 @@ namespace FileOrganizer.ViewModels
 
             SelecionarPastaCommand = new RelayCommand(SelecionarPasta);
             PesquisarCommand = new RelayCommand(Pesquisar, PodePesquisar);
-            MarcarTodosCommand = new RelayCommand(_ => MarcarTodos(true));
-            DesmarcarTodosCommand = new RelayCommand(_ => MarcarTodos(false));
             ExcluirSelecionadosCommand = new RelayCommand(ExcluirSelecionados); // habilita pelo TemSelecionado (XAML)
         }
 
@@ -104,19 +102,6 @@ namespace FileOrganizer.ViewModels
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(TemSelecionado));
-            }
-        }
-
-        private bool _selecionarTodos;
-        public bool SelecionarTodos
-        {
-            get { return _selecionarTodos; }
-            set
-            {
-                if (_selecionarTodos == value) return;
-                _selecionarTodos = value;
-                OnPropertyChanged();
-                MarcarTodos(value);
             }
         }
 
@@ -208,21 +193,23 @@ namespace FileOrganizer.ViewModels
                     else if (grupo.Chave == "NOME|HASH") rotulo = "Nome + Conteúdo";
                     else rotulo = grupo.Chave;
 
+
                     foreach (ArquivoModel arq in grupo.Arquivos)
                     {
                         var item = new ArquivoDuplicadoModel
                         {
-                            Selecionado = true, // entram selecionados
+                            Selecionado = arq.Selecionado,
                             Arquivo = arq,
-                            GrupoRotulo = rotulo
+                            GrupoRotulo = rotulo,
                         };
 
                         _itens.Add(item);
-                        _quantidadeSelecionados++; // já contamos ao inserir
+                        if (item.Selecionado)
+                            _quantidadeSelecionados++;
                     }
                 }
 
-                SelecionarTodos = true;
+                //SelecionarTodos = true;
                 OnPropertyChanged(nameof(TemSelecionado));
             }
             catch (UnauthorizedAccessException)
@@ -235,17 +222,6 @@ namespace FileOrganizer.ViewModels
             }
         }
 
-        private void MarcarTodos(bool valor)
-        {
-            for (int i = 0; i < _itens.Count; i++)
-            {
-                _itens[i].Selecionado = valor;
-            }
-
-            _quantidadeSelecionados = valor ? _itens.Count : 0;
-            OnPropertyChanged(nameof(TemSelecionado));
-        }
-
         private void ExcluirSelecionados(object _)
         {
             try
@@ -256,6 +232,9 @@ namespace FileOrganizer.ViewModels
                     _msg.Aviso("Nenhum item selecionado para excluir.");
                     return;
                 }
+                
+                if (!_msg.Confirmacao($"Confirma a exclusão de {selecionados.Count} arquivo(s) selecionado(s)?"))
+                    return;
 
                 var caminhos = selecionados
                     .Select(s => s.Arquivo?.Caminho)
@@ -285,7 +264,6 @@ namespace FileOrganizer.ViewModels
                 _msg.Erro("Falha ao excluir os arquivos selecionados.");
             }
         }
-
 
         private void Itens_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -322,8 +300,7 @@ namespace FileOrganizer.ViewModels
             {
                 if (sender is ArquivoDuplicadoModel item)
                 {
-                    if (item.Selecionado) _quantidadeSelecionados++;
-                    else if (_quantidadeSelecionados > 0) _quantidadeSelecionados--;
+                    RecontarSelecionados();
                     OnPropertyChanged(nameof(TemSelecionado));
                 }
             }

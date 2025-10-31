@@ -25,12 +25,14 @@ namespace FileOrganizer.Models.RegraDeNegocio.BuscarDuplicados
             if  (_etapas.Count == 0)
                 return new List<GrupoDuplicados>();
 
+            //Ler todos os arquivos inicialmente
             var leitor = new LeitorArquivosService(Caminho);
             var arquivos = leitor.LerRecursivo(); 
 
             if (arquivos == null || arquivos.Count == 0) 
                 return new List<GrupoDuplicados>();
 
+            //Monta os grupos de arquivos duplicados
             var grupos = _etapas[0].Agrupar(arquivos);
 
             for (int i = 1; i < _etapas.Count; i++)

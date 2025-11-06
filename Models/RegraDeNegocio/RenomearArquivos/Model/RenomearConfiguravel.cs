@@ -83,6 +83,7 @@ namespace FileOrganizer.Models.RegraDeNegocio.Renomear
 
             return string.Empty;
         }
+
         private string RotuloCurtoPorTipo(TipoArquivo tipo)
         {
             if (tipo == TipoArquivo.Imagens) return "img";

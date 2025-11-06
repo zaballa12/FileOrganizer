@@ -27,8 +27,8 @@ namespace FileOrganizer.ViewModels
             _modoPrefixo = ModoRenomear.Texto;
             _modoSufixo = ModoRenomear.Extensao; // defina como preferir
             // Inicializa proxies a partir dos enums
-            _modoPrefixoTexto = _modoPrefixo == ModoRenomear.Texto ? "Texto" : "Extensão";
-            _modoSufixoTexto = _modoSufixo == ModoRenomear.Texto ? "Texto" : "Extensão";
+            _modoPrefixoTexto = _modoPrefixo == ModoRenomear.Texto ? "Texto" : "Formato";
+            _modoSufixoTexto = _modoSufixo == ModoRenomear.Texto ? "Texto" : "Formato";
             _itensPrevia = new ObservableCollection<SugestaoRenomeacaoModel>();
 
             SelecionarPastaCommand = new RelayCommand(ExecutarSelecionarPasta);
@@ -60,7 +60,7 @@ namespace FileOrganizer.ViewModels
                 if (_modoPrefixo == value) return;
                 _modoPrefixo = value;
                 // sincronia com o proxy
-                ModoPrefixoTexto = _modoPrefixo == ModoRenomear.Texto ? "Texto" : "Extensão";
+                ModoPrefixoTexto = _modoPrefixo == ModoRenomear.Texto ? "Texto" : "Formato";
                 OnPropertyChanged();
             }
         }
@@ -74,7 +74,7 @@ namespace FileOrganizer.ViewModels
                 if (_modoSufixo == value) return;
                 _modoSufixo = value;
                 // sincronia com o proxy
-                ModoSufixoTexto = _modoSufixo == ModoRenomear.Texto ? "Texto" : "Extensão";
+                ModoSufixoTexto = _modoSufixo == ModoRenomear.Texto ? "Texto" : "Formato";
                 OnPropertyChanged();
             }
         }

@@ -54,7 +54,7 @@
                       SelectedValuePath="Content"
                       SelectedValue="{Binding ModoPrefixoTexto, Mode=TwoWay}">
                             <ComboBoxItem Content="Texto"/>
-                            <ComboBoxItem Content="Extensão"/>
+                            <ComboBoxItem Content="Formato"/>
                         </ComboBox>
 
                         <!-- campo de texto do PREFIXO (aparece só quando tipo = Texto) -->
@@ -62,7 +62,7 @@
                      Height="22"
                      Margin="8,0,0,0"
                      Text="{Binding PrefixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="4"
+                     MaxLength="6"
                      materialDesign:HintAssist.Hint="Prefixo (4 chars)">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
@@ -87,7 +87,7 @@
                       SelectedValuePath="Content"
                       SelectedValue="{Binding ModoSufixoTexto, Mode=TwoWay}">
                             <ComboBoxItem Content="Texto"/>
-                            <ComboBoxItem Content="Extensão"/>
+                            <ComboBoxItem Content="Formato"/>
                         </ComboBox>
 
                         <!-- campo de texto do SUFIXO (aparece só quando tipo = Texto) -->
@@ -95,7 +95,7 @@
                      Height="22"
                      Margin="8,0,0,0"
                      Text="{Binding SufixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="4"
+                     MaxLength="6"
                      materialDesign:HintAssist.Hint="Sufixo (4 chars)">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">

@@ -50,20 +50,20 @@
                     <TextBlock Text="Prefixo" FontWeight="SemiBold" Margin="0,0,0,6"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <ComboBox x:Name="PrefixoModoCombo"
-                      Width="200"
-                      SelectedValuePath="Content"
-                      SelectedValue="{Binding ModoPrefixoTexto, Mode=TwoWay}">
+                                  Width="200"
+                                  SelectedValuePath="Content"
+                                  SelectedValue="{Binding ModoPrefixoTexto, Mode=TwoWay}">
                             <ComboBoxItem Content="Texto"/>
                             <ComboBoxItem Content="Formato"/>
                         </ComboBox>
 
                         <!-- campo de texto do PREFIXO (aparece só quando tipo = Texto) -->
                         <TextBox Width="150"
-                     Height="22"
-                     Margin="8,0,0,0"
-                     Text="{Binding PrefixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="6"
-                     materialDesign:HintAssist.Hint="Prefixo (4 chars)">
+                                 Height="22"
+                                 Margin="8,0,0,0"
+                                 Text="{Binding PrefixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 MaxLength="6"
+                                 materialDesign:HintAssist.Hint="Prefixo (4 chars)">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -83,20 +83,20 @@
                     <TextBlock Text="Sufixo" FontWeight="SemiBold" Margin="0,0,0,6"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <ComboBox x:Name="SufixoModoCombo"
-                      Width="200"
-                      SelectedValuePath="Content"
-                      SelectedValue="{Binding ModoSufixoTexto, Mode=TwoWay}">
+                                  Width="200"
+                                  SelectedValuePath="Content"
+                                  SelectedValue="{Binding ModoSufixoTexto, Mode=TwoWay}">
                             <ComboBoxItem Content="Texto"/>
                             <ComboBoxItem Content="Formato"/>
                         </ComboBox>
 
                         <!-- campo de texto do SUFIXO (aparece só quando tipo = Texto) -->
                         <TextBox Width="150"
-                     Height="22"
-                     Margin="8,0,0,0"
-                     Text="{Binding SufixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="6"
-                     materialDesign:HintAssist.Hint="Sufixo (4 chars)">
+                                 Height="22"
+                                 Margin="8,0,0,0"
+                                 Text="{Binding SufixoTexto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 MaxLength="6"
+                                 materialDesign:HintAssist.Hint="Sufixo (4 chars)">
                             <TextBox.Style>
                                 <Style TargetType="TextBox">
                                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -121,20 +121,20 @@
                          UniformCornerRadius="12">
             <DockPanel>
                 <TextBox DockPanel.Dock="Left"
-                 Width="520"
-                 Text="{Binding PastaSelecionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 materialDesign:HintAssist.Hint="Pasta"
-                 Margin="0,0,12,0"/>
+                         Width="520"
+                         Text="{Binding PastaSelecionada, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Pasta"
+                         Margin="0,0,12,0"/>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
                     <Button Content="Selecionar"
-                  Command="{Binding SelecionarPastaCommand}"
-                  Style="{StaticResource MaterialDesignRaisedButton}"/>
+                            Command="{Binding SelecionarPastaCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"/>
                     <Button Content="Pré-visualizar"
-                  Margin="8,0,0,0"
-                  Command="{Binding GerarPreviaCommand}"
-                  Style="{StaticResource MaterialDesignOutlinedButton}"
-                  Foreground="{DynamicResource SecondaryHueMidBrush}"
-                  BorderBrush="{DynamicResource SecondaryHueMidBrush}"/>
+                            Margin="8,0,0,0"
+                            Command="{Binding GerarPreviaCommand}"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            Foreground="{DynamicResource SecondaryHueMidBrush}"
+                            BorderBrush="{DynamicResource SecondaryHueMidBrush}"/>
                 </StackPanel>
             </DockPanel>
         </materialDesign:Card>
@@ -145,21 +145,30 @@
                          Margin="0,8,0,0"
                          Background="White"
                          UniformCornerRadius="12">
-            <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
                 <TextBlock Text="Pré-visualização" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                <DataGrid ItemsSource="{Binding ItensPrevia}"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  IsReadOnly="True"
-                  Background="White"
-                  BorderThickness="0"
-                  GridLinesVisibility="None">
+
+                <DataGrid Grid.Row="1"
+                          ItemsSource="{Binding ItensPrevia}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          Background="White"
+                          BorderThickness="0"
+                          GridLinesVisibility="None"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.CanContentScroll="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nome Atual" Binding="{Binding NomeAtual}" Width="2*"/>
                         <DataGridTextColumn Header="Novo Nome"  Binding="{Binding NomeNovo}"  Width="2*"/>
                     </DataGrid.Columns>
                 </DataGrid>
-            </StackPanel>
+            </Grid>
         </materialDesign:Card>
 
         <!-- RODAPÉ -->

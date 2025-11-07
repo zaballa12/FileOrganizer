@@ -2,29 +2,29 @@ Projeto Acadêmico - ADS FSG - Caxias do Sul
 
 Gestor de arquivos e pastas pessoais para usuários comuns.
 
-# 🗂️ FileOrganizer
+# FileOrganizer
 
 **FileOrganizer** é uma ferramenta desktop desenvolvida em **C# (.NET 8)** com **WPF (Windows Presentation Foundation)**, voltada à **organização e gerenciamento de arquivos locais no Windows**.  
 O sistema permite **organizar, renomear e identificar arquivos duplicados** de forma automatizada e intuitiva, oferecendo ao usuário uma interface moderna baseada no **Material Design**.
 
 ---
 
-## 🎯 Objetivo
+## Objetivo
 
 O projeto tem como objetivo **simplificar tarefas manuais de gerenciamento de arquivos**, reduzindo o tempo gasto com atividades repetitivas e melhorando a eficiência no uso de pastas pessoais.  
 Além disso, o código é **open source**, incentivando o aprendizado e a contribuição da comunidade de desenvolvedores.
 
 ---
 
-## ⚙️ Funcionalidades
+## Funcionalidades
 
-### 📁 Organizar Pasta
+### Organizar Pasta
 Organiza os arquivos de uma pasta em subpastas automaticamente com base em três critérios:
 - **Por formato:** Agrupa por tipo de arquivo (imagens, vídeos, documentos, áudios, compactados, etc).
 - **Por prefixo:** Cria pastas com base no início do nome dos arquivos (ex.: `foto_01.jpg`, `foto_02.jpg` → pasta `FOTO`).
 - **Por data de criação:** Organiza cronologicamente (ex.: `\2025\01`, `\2025\02`).
 
-📌 **Importante:**  
+**Importante:**  
 A organização é feita **somente nos arquivos da pasta selecionada**, sem afetar subpastas existentes.
 
 ---
@@ -47,11 +47,11 @@ Localiza e agrupa arquivos duplicados dentro de uma pasta e suas subpastas.
 - **Combinação de critérios:** O usuário pode aplicar ambos os métodos para maior eficiência.  
 - A exclusão é **segura**, movendo os arquivos selecionados para a Lixeira.  
 - O sistema mantém **o arquivo original desmarcado**, identificado pela **data de criação mais antiga**.
-📌 **Importante:**  
+ **Importante:**  
 A busca é feita **de forma recursiva por todas as subpastas da pasta selecionada**.
 ---
 
-## 🧠 Arquitetura e Tecnologias
+## Arquitetura e Tecnologias
 
 - **Linguagem:** C# (.NET 8 LTS)  
 - **Interface:** WPF (Windows Presentation Foundation)  
@@ -69,7 +69,7 @@ A aplicação é dividida em camadas independentes:
 
 ---
 
-## 🧩 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 FileOrganizer/
@@ -84,7 +84,7 @@ FileOrganizer/
 
 ---
 
-## 🚀 Como Executar
+## Como Executar
 
 ### Pré-requisitos
 - **.NET 8 SDK** instalado  
@@ -103,7 +103,7 @@ git clone https://github.com/luizzaccani/FileOrganizer.git
 
 ---
 
-## 🖼️ Interface
+## Interface
 
 A interface foi desenvolvida com **Material Design**, priorizando clareza, legibilidade e consistência visual.  
 As telas principais seguem o mesmo layout, com:
@@ -118,7 +118,7 @@ Consulte o arquivo `LICENSE` para mais informações.
 
 ---
 
-## 🤝 Contribuição
+## Contribuição
 
 Contribuições são bem-vindas!  
 Siga os passos abaixo para colaborar:
@@ -138,7 +138,7 @@ git checkout -b minha-alteracao
 **Luiz Henrique Zaccani Zaballa**  
 Desenvolvedor .NET | Análise e Desenvolvimento de Sistemas – FSG  
 📍 Caxias do Sul – RS, Brasil  
-📧 Contato: LinkedIn em https://www.linkedin.com/in/luiz-zaccani
+📧 Contato: LinkedIn em https://www.linkedin.com/in/luiz-henrique-zaccani-zaballa-884a0a1b2/
 
 ---
 

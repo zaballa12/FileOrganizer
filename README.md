@@ -29,7 +29,7 @@ A organização é feita **somente nos arquivos da pasta selecionada**, sem afet
 
 ---
 
-### ✏️ Renomear em Lote
+### Renomear em Lote
 Permite alterar vários nomes de arquivos de uma só vez.
 - Adiciona **prefixos e sufixos** personalizados ou automáticos com base na extensão.  
 - Evita sobrescrever arquivos, aplicando numeração automática em nomes repetidos.  
@@ -40,7 +40,7 @@ Permite alterar vários nomes de arquivos de uma só vez.
 
 ---
 
-### 🔍 Buscar Duplicados
+### Buscar Duplicados
 Localiza e agrupa arquivos duplicados dentro de uma pasta e suas subpastas.
 - **Por nome:** Identifica cópias com nomes semelhantes (ignora sufixos como “(1)” ou “- Cópia”).  
 - **Por conteúdo:** Compara o **hash SHA-256** dos arquivos, garantindo precisão total mesmo com nomes diferentes.  
@@ -133,7 +133,7 @@ git checkout -b minha-alteracao
 
 ---
 
-## 📚 Autor
+## Autor
 
 **Luiz Henrique Zaccani Zaballa**  
 Desenvolvedor .NET | Análise e Desenvolvimento de Sistemas – FSG  

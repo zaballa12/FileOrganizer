@@ -2,7 +2,7 @@ Projeto Acadêmico - ADS FSG - Caxias do Sul
 
 Gestor de arquivos e pastas pessoais para usuários comuns.
 
-# FileOrganizer (MVVM
+# FileOrganizer (MVVM)
 
 **FileOrganizer** é uma ferramenta desktop desenvolvida em **C# (.NET 8)** com **WPF (Windows Presentation Foundation)**, voltada à **organização e gerenciamento de arquivos locais no Windows**.  
 O sistema permite **organizar, renomear e identificar arquivos duplicados** de forma automatizada e intuitiva, oferecendo ao usuário uma interface moderna baseada no **Material Design**.
